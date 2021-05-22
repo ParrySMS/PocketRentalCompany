@@ -1,5 +1,4 @@
 database:
-  url: jdbc:sqlserver://host:port;databaseName=database;encrypt=true
-  username:
-  password:
-
+  url: jdbc:sqlserver://demo-company.database.windows.net:1433;database=demo;
+  username: parrysms@demo-company
+  password: {your_password}
