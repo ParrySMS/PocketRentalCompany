@@ -7,8 +7,10 @@ import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 
+import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
+
 class VehicleServiceTest {
 
     private VehicleService vehicleService;
@@ -16,7 +18,7 @@ class VehicleServiceTest {
 
     @Test
     void getVehicles_normal_returnList() {
-        when(vehicleRepository.selectAllVehicles())
+        when(vehicleRepository.selectAllVehicles(anyInt(), anyInt()))
                 .thenReturn(MockRepo.getSomeMockVehicles());
         vehicleService = new VehicleService(vehicleRepository);
         var vehicles = vehicleService.getVehicles();
@@ -27,7 +29,7 @@ class VehicleServiceTest {
 
     @Test
     void getVehicles_empty_returnEmptyList() {
-        when(vehicleRepository.selectAllVehicles())
+        when(vehicleRepository.selectAllVehicles(anyInt(), anyInt()))
                 .thenReturn(new ArrayList<>());
         vehicleService = new VehicleService(vehicleRepository);
         var vehicles = vehicleService.getVehicles();
@@ -38,7 +40,7 @@ class VehicleServiceTest {
 
     @Test
     void getVehicles_null_returnEmptyList() {
-        when(vehicleRepository.selectAllVehicles())
+        when(vehicleRepository.selectAllVehicles(anyInt(), anyInt()))
                 .thenReturn(null);
         vehicleService = new VehicleService(vehicleRepository);
         var vehicles = vehicleService.getVehicles();

@@ -1,4 +1,4 @@
 database:
   url: jdbc:sqlserver://demo-company.database.windows.net:1433;database=demo;
   username: parrysms@demo-company
-  password: {your_password}
+  password: P@ssWord2az
