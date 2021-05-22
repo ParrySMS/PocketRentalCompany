@@ -56,7 +56,7 @@ Deadline3：24:00 23/5/2021  30h
 | ------------------- | --------- | ------------ | ----- | --------- | ------------- |
 | id                  | sku_guid  | vehicle_id   | color | create_on | last_modified |
 
-
+![1621680359937](DevelopLog.assets/1621680359937.png)
 
 # Azure
 
