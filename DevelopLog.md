@@ -1,7 +1,9 @@
 
 
 Deadline1：0:00 23/5/2021  6h
+
 Deadline2：12:00 23/5/2021  18h 
+
 Deadline3：24:00 23/5/2021  30h
 
 # Doc 
@@ -30,12 +32,12 @@ Deadline3：24:00 23/5/2021  30h
 | -------------------------- | ---------- | ----------- | --------- | ------------- |
 | id                         | vehicle_id | description | create_on | last_modified |
 
-| pocket_vehicle_stock |          |            |       |                   |                |           |               |
+| pocket_vehicle_stock |          |            |                   |                |           |               |
 | -------------------- | -------- | ---------- | ----------------- | -------------- | --------- | ------------- |
 | id                   | sku_guid | vehicle_id | service_day_count | free_day_count | create_on | last_modified |
 
-| pocket_price_frequency |      |           |               |
-| ---------------------- | ---- | --------- | ------------- |
+| pocket_price_frequency |                 |           |               |
+| ---------------------- | --------------- | --------- | ------------- |
 | id                     | price_frequency | create_on | last_modified |
 
 | pocket_rental_schedule |          |            |          |                |                 |           |               |
@@ -50,9 +52,9 @@ Deadline3：24:00 23/5/2021  30h
 | ------------------- | --------- | ------------ | ----------- | --------- | ------------- |
 | id                  | client_id | signing_time | total_price | create_on | last_modified |
 
-| pocket_sku |           |              |             |           |               |
-| ------------------- | --------- | ------------ | ----------- | --------- | ------------- |
-| id                  | sku_guid | vehicle_id | color | create_on | last_modified |
+| pocket_sku          |           |              |       |           |               |
+| ------------------- | --------- | ------------ | ----- | --------- | ------------- |
+| id                  | sku_guid  | vehicle_id   | color | create_on | last_modified |
 
 
 
@@ -76,8 +78,7 @@ http://localhost:8080/swagger-ui.html
 - [v] view all vehicle
 - [v] view all sku for one vehicle
 - [v] view available vehicle for selected rental period
-- [v] choose one sku and show the price
-- [v] change rental period and show the new price
+- [v] choose one sku and show the price, change rental period and show the new price
 - [v] add the {SKU + period} into order
 - [v] show order
 - [] view other SKU
@@ -96,8 +97,7 @@ GET  /vehicles?from={start_day}&end={end_day}
 
 GET  /sku/{skuid}/price?from={start_day}&end={end_day}
 
-GET /orders
-
 POST /orders {body}
-
 PUT /orders/{orderId}  {body}
+
+GET /orders
