@@ -3,8 +3,10 @@ spring:
   profiles: dev
   datasource:
     write:
-      url:
-      username:
+      driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+      url: jdbc:sqlserver://demo-company.database.windows.net:1433;database=demo;encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30;
+      user: parrysms@demo-company
+      password: {your_pw}
       hikari:
         maximum-pool-size: 10
         connection-timeout: 60000
@@ -16,3 +18,10 @@ spring:
 logging:
   level:
     com: DEBUG
+
+
+mybatis:
+  type-aliases-package: cn.codesheep.springbt_mybatis_sqlserver.entity
+  mapper-locations: classpath:mapper/*.xml
+  configuration:
+    map-underscore-to-camel-case: true
