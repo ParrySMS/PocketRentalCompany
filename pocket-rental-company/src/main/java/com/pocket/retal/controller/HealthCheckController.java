@@ -10,8 +10,13 @@ import java.time.LocalDate;
 @Api
 public class HealthCheckController {
 
-    @GetMapping(value = "/health-check", produces = "application/json")
+    @GetMapping("/health-check")
     public String healthCheck() {
         return " It's OK. " + LocalDate.now();
+    }
+
+    @GetMapping("/database-check")
+    public String check() {
+        return "";
     }
 }
