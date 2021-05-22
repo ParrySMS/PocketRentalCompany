@@ -2,18 +2,22 @@ environment: dev
 spring:
   profiles: dev
   datasource:
-    write:
-      driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
-      url: jdbc:sqlserver://demo-company.database.windows.net:1433;database=demo;encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30;
-      user: parrysms@demo-company
-      password: {your_pw}
-      hikari:
-        maximum-pool-size: 10
-        connection-timeout: 60000
-        minimum-idle: 8
-        idle-timeout: 600000
-        max-lifetime: 600000
-        connection-test-query: SELECT 1
+    driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+    url: jdbc:sqlserver://demo-company.database.windows.net:1433;database=demo;
+    username: parrysms@demo-company
+    password: {your_password}
+    maxActive: 20
+    initialSize: 1
+    maxWait: 60000
+    minIdle: 1
+    timeBetweenEvictionRunsMillis: 60000
+    minEvictableIdleTimeMillis: 300000
+    validationQuery: select 1
+    testWhileIdle: true
+    testOnBorrow: true
+    testOnReturn: true
+    poolPreparedStatements: true
+    maxOpenPreparedStatements: 20
 
 logging:
   level:

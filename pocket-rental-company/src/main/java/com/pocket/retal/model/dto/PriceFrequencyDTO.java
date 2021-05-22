@@ -11,5 +11,5 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class PriceFrequencyDTO {
     private int id;
-    private String frequency_type;
+    private String frequencyType;
 }
