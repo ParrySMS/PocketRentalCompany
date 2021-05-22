@@ -2,6 +2,7 @@ package com.pocket.retal.controller;
 
 import com.pocket.retal.model.ApiResult;
 import com.pocket.retal.model.dto.VehicleDTO;
+import com.pocket.retal.model.dto.VehicleSkuDTO;
 import com.pocket.retal.service.VehicleService;
 import com.pocket.retal.util.ValidateUtil;
 import io.swagger.annotations.Api;
@@ -40,6 +41,32 @@ public class VehicleController {
         ValidateUtil.notNull(pageSize, "pageSize");
         try {
             return ApiResult.ok(vehicleService.getVehicles(offset, pageSize));
+        } catch (Exception e) {
+            return ApiResult.failed(e.getMessage());
+        }
+    }
+
+    @GetMapping("/{vehicleId}/skus")
+    public ResponseEntity<ApiResult<List<VehicleSkuDTO>>> getAllSkusFromOneVehicle(
+            @PathVariable("vehicleId") int vehicleId) {
+        ValidateUtil.min(vehicleId, 1, "vehicleId");
+        try {
+            return ApiResult.ok(vehicleService.getAllSkusFromOneVehicle(vehicleId));
+        } catch (Exception e) {
+            return ApiResult.failed(e.getMessage());
+        }
+    }
+
+    @GetMapping("/{vehicleId}/skus/{offset}/{pageSize}")
+    public ResponseEntity<ApiResult<List<VehicleSkuDTO>>> getAllSkusFromOneVehicle(
+            @PathVariable("vehicleId") int vehicleId,
+            @PathVariable("offset") int offset,
+            @PathVariable("pageSize") int pageSize) {
+        ValidateUtil.min(vehicleId, 1, "vehicleId");
+        ValidateUtil.notNull(offset, "offset");
+        ValidateUtil.notNull(pageSize, "pageSize");
+        try {
+            return ApiResult.ok(vehicleService.getAllSkusFromOneVehicle(vehicleId, offset, pageSize));
         } catch (Exception e) {
             return ApiResult.failed(e.getMessage());
         }

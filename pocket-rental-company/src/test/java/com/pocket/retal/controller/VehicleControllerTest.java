@@ -6,9 +6,8 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import static org.mockito.ArgumentMatchers.anyInt;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.doThrow;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
+
 class VehicleControllerTest {
 
     private VehicleController vehicleController;
@@ -29,10 +28,10 @@ class VehicleControllerTest {
 
     @Test
     void getVehicles_normalSecondPage_returnApiResultOK() {
-        when(vehicleService.getVehicles(anyInt(),anyInt()))
+        when(vehicleService.getVehicles(anyInt(), anyInt()))
                 .thenReturn(MockRepo.getSomeMockVehicles());
         vehicleController = new VehicleController(vehicleService);
-        var apiResult = vehicleController.getVehicles();
+        var apiResult = vehicleController.getVehicles(0, 1);
 
         Assertions.assertNotNull(apiResult);
         Assertions.assertNotNull(apiResult.getBody());
@@ -45,6 +44,64 @@ class VehicleControllerTest {
         doThrow(new IllegalStateException()).when(vehicleService).getVehicles();
         vehicleController = new VehicleController(vehicleService);
         var apiResult = vehicleController.getVehicles();
+
+        Assertions.assertNotNull(apiResult);
+        Assertions.assertNotNull(apiResult.getBody());
+        Assertions.assertFalse(apiResult.getBody().status);
+
+
+        doThrow(new IllegalStateException()).when(vehicleService).getVehicles(anyInt(), anyInt());
+        vehicleController = new VehicleController(vehicleService);
+        apiResult = vehicleController.getVehicles(2, 100);
+
+        Assertions.assertNotNull(apiResult);
+        Assertions.assertNotNull(apiResult.getBody());
+        Assertions.assertFalse(apiResult.getBody().status);
+    }
+
+    @Test
+    void getAllSkusFromOneVehicle_normalFirstPage_returnApiResultOK() {
+        int mockVehicleId = 12;
+        when(vehicleService.getAllSkusFromOneVehicle(mockVehicleId))
+                .thenReturn(MockRepo.getSomeMockVehicleSkus(mockVehicleId));
+        vehicleController = new VehicleController(vehicleService);
+        var apiResult = vehicleController.getAllSkusFromOneVehicle(mockVehicleId);
+
+        Assertions.assertNotNull(apiResult);
+        Assertions.assertNotNull(apiResult.getBody());
+        Assertions.assertTrue(apiResult.getBody().status);
+        Assertions.assertFalse(apiResult.getBody().data.isEmpty());
+    }
+
+    @Test
+    void getAllSkusFromOneVehicle_normalSecondPage_returnApiResultOK() {
+        int mockVehicleId = 34;
+        when(vehicleService.getAllSkusFromOneVehicle(eq(mockVehicleId), anyInt(), anyInt()))
+                .thenReturn(MockRepo.getSomeMockVehicleSkus(mockVehicleId));
+        vehicleController = new VehicleController(vehicleService);
+        var apiResult = vehicleController.getAllSkusFromOneVehicle(mockVehicleId, 0, 1);
+
+        Assertions.assertNotNull(apiResult);
+        Assertions.assertNotNull(apiResult.getBody());
+        Assertions.assertTrue(apiResult.getBody().status);
+        Assertions.assertFalse(apiResult.getBody().data.isEmpty());
+    }
+
+    @Test
+    void getAllSkusFromOneVehicle_exception_returnApiResultFailed() {
+        int mockVehicleId = 56;
+        doThrow(new IllegalStateException()).when(vehicleService).getAllSkusFromOneVehicle(mockVehicleId);
+        vehicleController = new VehicleController(vehicleService);
+        var apiResult = vehicleController.getAllSkusFromOneVehicle(mockVehicleId);
+
+        Assertions.assertNotNull(apiResult);
+        Assertions.assertNotNull(apiResult.getBody());
+        Assertions.assertFalse(apiResult.getBody().status);
+
+
+        doThrow(new IllegalStateException()).when(vehicleService).getAllSkusFromOneVehicle(eq(mockVehicleId), anyInt(), anyInt());
+        vehicleController = new VehicleController(vehicleService);
+        apiResult = vehicleController.getAllSkusFromOneVehicle(mockVehicleId, 2, 100);
 
         Assertions.assertNotNull(apiResult);
         Assertions.assertNotNull(apiResult.getBody());
