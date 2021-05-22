@@ -1,4 +1,4 @@
-package com.pocket.pocketrentalcompany;
+package com.pocket.flyway;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
