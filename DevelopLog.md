@@ -1,6 +1,6 @@
 
 
-Deadline1：0:00 23/5/2021  11h
+Deadline1：0:00 23/5/2021  9h
 Deadline2：12:00 23/5/2021  23h 
 Deadline3：24:00 23/5/2021  35h
 
@@ -26,29 +26,38 @@ Deadline3：24:00 23/5/2021  35h
 | -------------- | ---- | ---------- | --------- | ------------- |
 | id             | name | model_year | create_on | last_modified |
 
-| pocketl_vehicle_description |            |             |           |               |
-| --------------------------- | ---------- | ----------- | --------- | ------------- |
-| id                          | vehicle_id | description | create_on | last_modified |
+| pocket_vehicle_description |            |             |           |               |
+| -------------------------- | ---------- | ----------- | --------- | ------------- |
+| id                         | vehicle_id | description | create_on | last_modified |
 
 | pocket_vehicle_stock |          |            |       |                   |                |           |               |
-| -------------------- | -------- | ---------- | ----- | ----------------- | -------------- | --------- | ------------- |
-| id                   | sku_guid | vehicle_id | color | service_day_count | free_day_count | create_on | last_modified |
+| -------------------- | -------- | ---------- | ----------------- | -------------- | --------- | ------------- |
+| id                   | sku_guid | vehicle_id | service_day_count | free_day_count | create_on | last_modified |
 
-| pocket_rent_period |      |           |               |
-| ------------------ | ---- | --------- | ------------- |
-| id                 | type | create_on | last_modified |
+| pocket_price_frequency |      |           |               |
+| ---------------------- | ---- | --------- | ------------- |
+| id                     | type | create_on | last_modified |
 
 | pocket_rental_schedule |          |            |          |                |                 |           |               |
 | ---------------------- | -------- | ---------- | -------- | -------------- | --------------- | --------- | ------------- |
 | id                     | sku_guid | start_time | end_time | schedule_price | rental_order_id | create_on | last_modified |
 
-| pocket_sku_price |          |                |       |           |               |
-| ---------------- | -------- | -------------- | ----- | --------- | ------------- |
-| id               | sku_guid | rent_period_id | price | create_on | last_modified |
+| pocket_sku_price |          |                    |       |           |               |
+| ---------------- | -------- | ------------------ | ----- | --------- | ------------- |
+| id               | sku_guid | price_frequency_id | price | create_on | last_modified |
 
 | pocket_rental_order |           |              |             |           |               |
 | ------------------- | --------- | ------------ | ----------- | --------- | ------------- |
 | id                  | client_id | signing_time | total_price | create_on | last_modified |
+
+
+| pocket_sku |           |              |             |           |               |
+| ------------------- | --------- | ------------ | ----------- | --------- | ------------- |
+| id                  | sku_guid | vehicle_id | color | create_on | last_modified |
+
+
+
+
 
 # Azure
 
