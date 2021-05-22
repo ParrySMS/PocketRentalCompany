@@ -1,4 +1,4 @@
-package com.pocket.pocketrentalcompany.model;
+package com.pocket.retal.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

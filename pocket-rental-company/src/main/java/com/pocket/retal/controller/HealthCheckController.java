@@ -1,4 +1,4 @@
-package com.pocket.pocketrentalcompany.controller;
+package com.pocket.retal.controller;
 
 import io.swagger.annotations.Api;
 import org.springframework.web.bind.annotation.GetMapping;
