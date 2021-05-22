@@ -1,0 +1,18 @@
+spring:
+  jackson:
+    serialization:
+      WRITE_DATES_AS_TIMESTAMPS: false
+  application:
+    name: pocket-rental-api
+
+
+server:
+  port: 8080
+  tomcat:
+    max-http-post-size: 104857600
+    max-swallow-size: 104857600
+  compression:
+    enabled: true
+    mime-types:
+      - application/json
+    min-response-size: 1024

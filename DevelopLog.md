@@ -1,8 +1,8 @@
 
 
-Deadline1：0:00 23/5/2021  26h
-Deadline2：12:00 23/5/2021  38h 
-Deadline3：24:00 23/5/2021  50h
+Deadline1：0:00 23/5/2021  14h
+Deadline2：12:00 23/5/2021  26h 
+Deadline3：24:00 23/5/2021  38h
 
 # Doc 
 ## Free Resources
@@ -25,3 +25,4 @@ Deadline3：24:00 23/5/2021  50h
 - DB: https://portal.azure.com/#blade/HubsExtension/BrowseResource/resourceType/Microsoft.Sql%2Fservers%2Fdatabases
 
 ![1621611197623](DevelopLog.assets/1621611197623.png)
+
