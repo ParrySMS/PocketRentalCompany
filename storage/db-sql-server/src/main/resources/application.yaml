@@ -1,0 +1,5 @@
+database:
+  url: jdbc:sqlserver://host:port;databaseName=database;encrypt=true
+  username:
+  password:
+
