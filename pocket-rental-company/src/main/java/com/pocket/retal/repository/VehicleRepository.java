@@ -1,6 +1,7 @@
 package com.pocket.retal.repository;
 
 import com.pocket.retal.model.dto.VehicleDTO;
+import com.pocket.retal.model.dto.VehicleSkuDTO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 

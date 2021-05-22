@@ -1,10 +1,10 @@
 
 
-Deadline1：0:00 23/5/2021  6h
+Deadline1：0:00 23/5/2021 
 
-Deadline2：12:00 23/5/2021  18h 
+Deadline2：12:00 23/5/2021  10h 
 
-Deadline3：24:00 23/5/2021  30h
+Deadline3：24:00 23/5/2021  22h
 
 # Doc 
 ## Free Resources
