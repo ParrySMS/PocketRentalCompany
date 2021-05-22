@@ -56,6 +56,12 @@ Deadline3：24:00 23/5/2021  30h
 | ------------------- | --------- | ------------ | ----- | --------- | ------------- |
 | id                  | sku_guid  | vehicle_id   | color | create_on | last_modified |
 
+- flyway works
+![1621680359937](DevelopLog.assets/1621680359937.png)
+
+- swagger works (test API)
+
+  ![1621700877963](DevelopLog.assets/1621700877963.png)
 
 
 # Azure

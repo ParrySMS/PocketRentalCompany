@@ -36,7 +36,6 @@ public class Main {
                 params.put(key, value);
             }
         });
-        System.out.println("url:" + params.get("url"));
         return params;
     }
 
