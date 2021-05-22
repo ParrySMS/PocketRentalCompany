@@ -9,6 +9,7 @@ import java.util.Map;
 
 public class Main {
     public static void main(String[] args) {
+        System.out.println("args:" + args);
         Map<String, String> params = getParams(args);
         String url = params.get("url");
         String user = params.get("username");
@@ -35,7 +36,6 @@ public class Main {
                 params.put(key, value);
             }
         });
-        System.out.println("url:" + params.get("url"));
         return params;
     }
 

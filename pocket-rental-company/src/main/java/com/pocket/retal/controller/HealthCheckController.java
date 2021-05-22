@@ -18,9 +18,9 @@ import java.util.List;
 @Api
 public class HealthCheckController {
 
-    @Autowired
     PriceService priceService;
 
+    @Autowired
     public HealthCheckController(PriceService priceService) {
         this.priceService = priceService;
     }

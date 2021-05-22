@@ -9,9 +9,9 @@ GO
 CREATE TABLE [pocket].[pocket_sku]
 (
 	[id]              INTEGER IDENTITY(1,1)   NOT NULL,
-	[sku_guid]        INTEGER             NOT NULL,
-	[vehicle_id]      INTEGER                NOT NULL,
-	[color]           VARCHAR(63)             NOT NULL,
+	[sku_guid]        VARCHAR(127)            NOT NULL,
+	[vehicle_id]      INTEGER                 NOT NULL,
+	[color]           VARCHAR(127)            NOT NULL,
 	[create_on]       DATETIME                NOT NULL,
 	[last_modified]   DATETIME                NOT NULL
 )

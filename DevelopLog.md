@@ -1,8 +1,10 @@
 
 
-Deadline1：0:00 23/5/2021  9h
-Deadline2：12:00 23/5/2021  23h 
-Deadline3：24:00 23/5/2021  35h
+Deadline1：0:00 23/5/2021 
+
+Deadline2：12:00 23/5/2021  10h 
+
+Deadline3：24:00 23/5/2021  22h
 
 # Doc 
 ## Free Resources
@@ -30,13 +32,13 @@ Deadline3：24:00 23/5/2021  35h
 | -------------------------- | ---------- | ----------- | --------- | ------------- |
 | id                         | vehicle_id | description | create_on | last_modified |
 
-| pocket_vehicle_stock |          |            |       |                   |                |           |               |
+| pocket_vehicle_stock |          |            |                   |                |           |               |
 | -------------------- | -------- | ---------- | ----------------- | -------------- | --------- | ------------- |
 | id                   | sku_guid | vehicle_id | service_day_count | free_day_count | create_on | last_modified |
 
-| pocket_price_frequency |      |           |               |
-| ---------------------- | ---- | --------- | ------------- |
-| id                     | type | create_on | last_modified |
+| pocket_price_frequency |                 |           |               |
+| ---------------------- | --------------- | --------- | ------------- |
+| id                     | price_frequency | create_on | last_modified |
 
 | pocket_rental_schedule |          |            |          |                |                 |           |               |
 | ---------------------- | -------- | ---------- | -------- | -------------- | --------------- | --------- | ------------- |
@@ -50,13 +52,16 @@ Deadline3：24:00 23/5/2021  35h
 | ------------------- | --------- | ------------ | ----------- | --------- | ------------- |
 | id                  | client_id | signing_time | total_price | create_on | last_modified |
 
+| pocket_sku          |           |              |       |           |               |
+| ------------------- | --------- | ------------ | ----- | --------- | ------------- |
+| id                  | sku_guid  | vehicle_id   | color | create_on | last_modified |
 
-| pocket_sku |           |              |             |           |               |
-| ------------------- | --------- | ------------ | ----------- | --------- | ------------- |
-| id                  | sku_guid | vehicle_id | color | create_on | last_modified |
+- flyway works
+![1621680359937](DevelopLog.assets/1621680359937.png)
 
+- swagger works (test API)
 
-
+  ![1621700877963](DevelopLog.assets/1621700877963.png)
 
 
 # Azure
@@ -68,3 +73,37 @@ Deadline3：24:00 23/5/2021  35h
 
 # Swagger 
 http://localhost:8080/swagger-ui.html
+
+
+# API Design
+
+## User Story with Priority
+
+- [] sign up/sign in
+- [] view the most popular sku
+- [v] view all vehicle
+- [v] view all sku for one vehicle
+- [v] view available vehicle for selected rental period
+- [v] choose one sku and show the price, change rental period and show the new price
+- [v] add the {SKU + period} into order
+- [v] show order
+- [] view other SKU
+- [] take an order, waiting paid
+- [] call OtherAPI to finish payment
+
+## API 
+
+set the userID in the http header
+
+GET  /vehicles
+
+GET  /vehicles/{vid}/skus
+
+GET  /vehicles?from={start_day}&end={end_day}
+
+GET  /sku/{skuid}/price?from={start_day}&end={end_day}
+
+POST /orders {body}
+PUT /orders/{orderId}  {body}
+
+GET /orders

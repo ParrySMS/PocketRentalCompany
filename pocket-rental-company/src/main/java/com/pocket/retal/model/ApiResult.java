@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 @Builder
 public class ApiResult<T> {
     public boolean status;
+    public String appCode;
     public String message;
     public T data;
 
