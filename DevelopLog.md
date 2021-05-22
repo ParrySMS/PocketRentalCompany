@@ -19,10 +19,9 @@ Deadline3：24:00 23/5/2021  38h
 
 # Azure
 - service: https://portal.azure.com/#blade/HubsExtension/BrowseResource/resourceType/Microsoft.Web%2Fsites
-
-
-
 - DB: https://portal.azure.com/#blade/HubsExtension/BrowseResource/resourceType/Microsoft.Sql%2Fservers%2Fdatabases
 
 ![1621611197623](DevelopLog.assets/1621611197623.png)
 
+# Swagger 
+http://localhost:8080/swagger-ui.html

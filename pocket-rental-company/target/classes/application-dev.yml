@@ -1,0 +1,18 @@
+environment: dev
+spring:
+  profiles: dev
+  datasource:
+    write:
+      url:
+      username:
+      hikari:
+        maximum-pool-size: 10
+        connection-timeout: 60000
+        minimum-idle: 8
+        idle-timeout: 600000
+        max-lifetime: 600000
+        connection-test-query: SELECT 1
+
+logging:
+  level:
+    com: DEBUG
