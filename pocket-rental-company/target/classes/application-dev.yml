@@ -1,0 +1,31 @@
+environment: dev
+spring:
+  profiles: dev
+  datasource:
+    driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+    url: jdbc:sqlserver://demo-company.database.windows.net:1433;database=demo;
+    username: parrysms@demo-company
+    password: P@ssWord2az
+    maxActive: 20
+    initialSize: 1
+    maxWait: 60000
+    minIdle: 1
+    timeBetweenEvictionRunsMillis: 60000
+    minEvictableIdleTimeMillis: 300000
+    validationQuery: select 1
+    testWhileIdle: true
+    testOnBorrow: true
+    testOnReturn: true
+    poolPreparedStatements: true
+    maxOpenPreparedStatements: 20
+
+logging:
+  level:
+    com: DEBUG
+
+
+mybatis:
+  type-aliases-package: cn.codesheep.springbt_mybatis_sqlserver.entity
+  mapper-locations: classpath:mapper/*.xml
+  configuration:
+    map-underscore-to-camel-case: true
