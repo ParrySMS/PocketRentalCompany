@@ -9,10 +9,10 @@ GO
 CREATE TABLE [pocket].[pocket_price_frequency]
 (
 	[id]                INTEGER IDENTITY(1,1)   NOT NULL,
-	[type]              VARCHAR(63)             NOT NULL,
+	[frequency_type]    VARCHAR(63)             NOT NULL,
 	[create_on]         DATETIME                NOT NULL,
 	[last_modified]     DATETIME                NOT NULL
-) ON [demo]
+)
 GO
 
 ALTER TABLE [demo].[pocket].[pocket_price_frequency]

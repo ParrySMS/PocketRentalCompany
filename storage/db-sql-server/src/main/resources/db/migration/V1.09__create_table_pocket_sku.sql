@@ -14,7 +14,7 @@ CREATE TABLE [pocket].[pocket_sku]
 	[color]           VARCHAR(63)             NOT NULL,
 	[create_on]       DATETIME                NOT NULL,
 	[last_modified]   DATETIME                NOT NULL
-) ON [demo]
+)
 GO
 
 ALTER TABLE [demo].[pocket].[pocket_sku]

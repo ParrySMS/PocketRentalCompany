@@ -18,7 +18,7 @@ CREATE TABLE [pocket].[pocket_client]
 	[citizen_id]        VARCHAR(32)                 NOT NULL,
 	[create_on]         DATETIME                    NOT NULL,
 	[last_modified]     DATETIME                    NOT NULL
-) ON [demo]
+)
 GO
 
 ALTER TABLE [demo].[pocket].[pocket_client]
