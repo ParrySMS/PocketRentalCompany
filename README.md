@@ -91,10 +91,13 @@ You can find more details from the Flyway document.
 
 [https://flywaydb.org/documentation/getstarted/why](https://flywaydb.org/documentation/getstarted/why)
 
-![1621755190544](./README.assetsts/1621755190544.png)
+![1621755190544](./README.assets/1621755190544.png)
 
 After the program finish the database migration. You should view the INFO row as below.
+
 `INFO: Successfully applied X migrations to xxxxxxx`
+
+
 ![1621755625566](./README.assets/1621755625566.png)
 
 You will find your empty database have a migration to the latest project database.
@@ -107,7 +110,9 @@ Build and run `com.pocket.retal.PocketRentalCompanyApplication`.
 
 If you have your own profiles environment, please input into the `Program arguments`
 
+
 `--spring.profiles.active=dev `
+
 
 ![1621755906088](./README.assets/1621755906088.png)
 
@@ -161,11 +166,10 @@ How Flyway works : https://flywaydb.org/getstarted/how
 #### 2. Change the database through SQL
 
 - Please read the **SQL-based migrations naming** below or flyway document before you write an sql file.
-- 
 - write or export sql in new file. Here is some examples.
 
 ----------
-**versioned migrations: **
+**versioned migrations:**
 
 - create or alter something  
 
@@ -267,7 +271,7 @@ In order to be picked up by Flyway, SQL migrations must comply with the followin
 
 #### Repeatable Migrations
 
-![1621758594698](./README.assetsts/1621758594698.png)
+![1621758594698](./README.assets/1621758594698.png)
 
 The file name consists of the following parts:
 
