@@ -15,7 +15,7 @@ import java.util.List;
 public class SkuAvailableDate {
     String skuGuid;
     int vehicleId;
-    int vehicleName;
+    String vehicleName;
     int vehicleModelYear;
     Date timeIntervalStart;
     Date timeIntervalEnd;

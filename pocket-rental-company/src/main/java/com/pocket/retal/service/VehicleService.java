@@ -41,7 +41,7 @@ public class VehicleService {
         this.skuRepository = skuRepository;
     }
 
-    public List<VehicleDTO> getVehicles(Date startDate, Date endDate) {
+    public List<VehicleDTO> getVehiclesWithDates(Date startDate, Date endDate) {
         if (startDate == null && endDate == null) {
             return getVehicles();
         }

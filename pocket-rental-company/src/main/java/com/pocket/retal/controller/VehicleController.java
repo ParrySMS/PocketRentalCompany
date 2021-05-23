@@ -36,15 +36,14 @@ public class VehicleController {
         if (opStartDate.isPresent() && opEndDate.isPresent()) {
             ValidateUtil.Friendly.assertFalse(opEndDate.get().before(opStartDate.get()),
                     "endDate should not before startDate");
+
+            ValidateUtil.Friendly.assertFalse(opEndDate.get().equals(opStartDate.get()),
+                    "endDate should not be the same as startDate");
         }
 
         var startDate = opStartDate.orElse(null);
         var endDate = opEndDate.orElse(null);
-        try {
-            return ApiResult.ok(vehicleService.getVehicles(startDate, endDate));
-        } catch (Exception e) {
-            return ApiResult.failed(e.getMessage());
-        }
+        return ApiResult.ok(vehicleService.getVehiclesWithDates(startDate, endDate));
     }
 
     @GetMapping("/{offset}/{pageSize}")
@@ -53,22 +52,14 @@ public class VehicleController {
             @PathVariable("pageSize") int pageSize) {
         ValidateUtil.notNull(offset, "offset");
         ValidateUtil.notNull(pageSize, "pageSize");
-        try {
-            return ApiResult.ok(vehicleService.getVehicles(offset, pageSize));
-        } catch (Exception e) {
-            return ApiResult.failed(e.getMessage());
-        }
+        return ApiResult.ok(vehicleService.getVehicles(offset, pageSize));
     }
 
     @GetMapping("/{vehicleId}/skus")
     public ResponseEntity<ApiResult<List<VehicleSkuDTO>>> getAllSkusFromOneVehicle(
             @PathVariable("vehicleId") int vehicleId) {
         ValidateUtil.min(vehicleId, 1, "vehicleId");
-        try {
-            return ApiResult.ok(vehicleService.getAllSkusFromOneVehicle(vehicleId));
-        } catch (Exception e) {
-            return ApiResult.failed(e.getMessage());
-        }
+        return ApiResult.ok(vehicleService.getAllSkusFromOneVehicle(vehicleId));
     }
 
     @GetMapping("/{vehicleId}/skus/{offset}/{pageSize}")
@@ -79,10 +70,6 @@ public class VehicleController {
         ValidateUtil.min(vehicleId, 1, "vehicleId");
         ValidateUtil.notNull(offset, "offset");
         ValidateUtil.notNull(pageSize, "pageSize");
-        try {
-            return ApiResult.ok(vehicleService.getAllSkusFromOneVehicle(vehicleId, offset, pageSize));
-        } catch (Exception e) {
-            return ApiResult.failed(e.getMessage());
-        }
+        return ApiResult.ok(vehicleService.getAllSkusFromOneVehicle(vehicleId, offset, pageSize));
     }
 }
