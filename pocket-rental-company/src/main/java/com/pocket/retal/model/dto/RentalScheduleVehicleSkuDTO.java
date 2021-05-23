@@ -13,11 +13,11 @@ import java.util.Date;
 @AllArgsConstructor
 public class RentalScheduleVehicleSkuDTO {
     String skuGuid;
-    int vehicleId;
-    int vehicleName;
-    int vehicleModelYear;
+    Integer vehicleId;
+    String vehicleName;
+    Integer vehicleModelYear;
     Date startTime;
     Date endTime;
     String schedulePrice;
-    int rentalOrderId;
+    Integer rentalOrderId;
 }
