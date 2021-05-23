@@ -54,7 +54,7 @@ public class ValidateUtil {
             if (isThrowException) {
                 throw new ValidationException("parse dateString error");
             }
-            return Optional.of(defaultDate);
+            return Optional.empty();
         }
 
         SimpleDateFormat formatter = new SimpleDateFormat(YMD_DATE_FORMAT);
