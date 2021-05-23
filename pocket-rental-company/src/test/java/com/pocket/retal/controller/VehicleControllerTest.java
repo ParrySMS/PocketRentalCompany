@@ -17,7 +17,7 @@ class VehicleControllerTest {
 
     @Test
     void getVehicles_normalFirstPage_returnApiResultOK() throws ParseException {
-        when(vehicleService.getVehicles())
+        when(vehicleService.getVehicles(any(), any()))
                 .thenReturn(MockRepo.getSomeMockVehicles());
         vehicleController = new VehicleController(vehicleService);
         var apiResult = vehicleController.getVehicles("", "");
@@ -43,7 +43,7 @@ class VehicleControllerTest {
 
     @Test
     void getVehicles_exception_returnApiResultFailed() throws ParseException {
-        doThrow(new IllegalStateException()).when(vehicleService).getVehicles();
+        doThrow(new IllegalStateException()).when(vehicleService).getVehicles(any(), any());
         vehicleController = new VehicleController(vehicleService);
         var apiResult = vehicleController.getVehicles("", "");
 

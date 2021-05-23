@@ -31,12 +31,15 @@ public class VehicleController {
     public ResponseEntity<ApiResult<List<VehicleDTO>>> getVehicles(
             @RequestParam(value = "startDate", required = false) String startDateStr,
             @RequestParam(value = "endDate", required = false) String endDateStr) throws ParseException {
-        Optional<Date> startDate = ValidateUtil.parseDate(startDateStr);
-        Optional<Date> endDate = ValidateUtil.parseDate(endDateStr);
-        if (startDate.isPresent() && endDate.isPresent()) {
-            ValidateUtil.Friendly.assertFalse(endDate.get().before(startDate.get()),
+        Optional<Date> opStartDate = ValidateUtil.parseDate(startDateStr);
+        Optional<Date> opEndDate = ValidateUtil.parseDate(endDateStr);
+        if (opStartDate.isPresent() && opEndDate.isPresent()) {
+            ValidateUtil.Friendly.assertFalse(opEndDate.get().before(opStartDate.get()),
                     "endDate should not before startDate");
         }
+
+        var startDate = opStartDate.orElse(null);
+        var endDate = opEndDate.orElse(null);
         try {
             return ApiResult.ok(vehicleService.getVehicles(startDate, endDate));
         } catch (Exception e) {

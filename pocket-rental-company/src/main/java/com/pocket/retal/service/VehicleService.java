@@ -41,27 +41,21 @@ public class VehicleService {
         this.skuRepository = skuRepository;
     }
 
-    public List<VehicleDTO> getVehicles(Optional<Date> optionalStartDate, Optional<Date> optionalEndDate) {
-        if (optionalStartDate.isEmpty() && optionalEndDate.isEmpty()) {
+    public List<VehicleDTO> getVehicles(Date startDate, Date endDate) {
+        if (startDate == null && endDate == null) {
             return getVehicles();
         }
 
-        if (optionalStartDate.isPresent() && optionalEndDate.isPresent()) {
-            return getAvailableVehicles(
-                    optionalStartDate.get(),
-                    optionalEndDate.get());
+        if (startDate != null && endDate != null) {
+            return getAvailableVehicles(startDate, endDate);
         }
 
-        if (optionalStartDate.isPresent()) {
-            return getAvailableVehicles(
-                    optionalStartDate.get(),
-                    null);
+        if (startDate != null) {
+            return getAvailableVehicles(startDate, null);
         }
 
-        // optionalEndDate.isPresent()
-        return getAvailableVehicles(
-                null,
-                optionalEndDate.get());
+        // endDate != null
+        return getAvailableVehicles(null, endDate);
     }
 
 

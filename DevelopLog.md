@@ -106,3 +106,7 @@ POST /orders {body}
 PUT /orders/{orderId}  {body}
 
 GET /orders
+
+## Deployment
+
+https://docs.microsoft.com/zh-cn/azure/app-service/deploy-local-git?tabs=portal
