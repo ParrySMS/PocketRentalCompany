@@ -4,6 +4,7 @@ Pocket, a new car rental company, help you rent a car to travel to the world.
 
 [![standard-readme compliant](https://img.shields.io/badge/readme%20style-standard-brightgreen.svg?style=flat-square)]()
 
+Repository: https://github.com/ParrySMS/PocketRentalCompany
 
 This repository contains:
 
@@ -13,7 +14,7 @@ This repository contains:
 ------
 
 ## Table of Contents
-<!-- TOC -->
+
 
 - [PocketRentalCompany](#pocketrentalcompany)
     - [Table of Contents](#table-of-contents)
@@ -36,13 +37,12 @@ This repository contains:
         - [SQL-based migrations naming](#sql-based-migrations-naming)
             - [Versioned Migrations](#versioned-migrations)
             - [Repeatable Migrations](#repeatable-migrations)
-                - [Please do not forget Separator is two underscores __](#please-do-not-forget-separator-is-two-underscores-__)
     - [The difference of these migrations](#the-difference-of-these-migrations)
-            - [We do not use Undo Migrations because it need money](#we-do-not-use-undo-migrations-because-it-need-money)
-            - [Versioned Migrations](#versioned-migrations-1)
-            - [Repeatable Migrations](#repeatable-migrations-1)
+        - [Versioned Migrations](#versioned-migrations-1)
+        - [Repeatable Migrations](#repeatable-migrations-1)
 
-<!-- /TOC -->
+
+
 
 ## Background
 
@@ -278,7 +278,7 @@ The file name consists of the following parts:
 - Description: Underscores or spaces separate the words
 - Suffix: .sql (configurable)
 
-##### Please do not forget Separator is two underscores __
+**Please do not forget Separator is two underscores __**
 
 Optionally versioned SQL migrations can also omit both the separator and the description.
 
@@ -286,9 +286,9 @@ Optionally versioned SQL migrations can also omit both the separator and the des
 
 [https://flywaydb.org/documentation/migrations](https://flywaydb.org/documentation/migrations)
 
-#### We do not use Undo Migrations because it need money
+We do not use Undo Migrations because it need money
 
-#### Versioned Migrations
+### Versioned Migrations
 
 The most common type of migration is a versioned migration. Each versioned migration has a version, a description and a checksum. The version must be unique. The description is purely informative for you to be able to remember what each migration does. The checksum is there to detect accidental changes. Versioned migrations are applied in order exactly once.
 
@@ -298,7 +298,7 @@ Versioned migrations are typically used for:
 - Reference data updates
 - User data corrections
 
-#### Repeatable Migrations
+### Repeatable Migrations
 
 **Repeatable migrations** have a description and a checksum, but no version. Instead of being run just once, they are (re-)applied every time their checksum changes.
 
