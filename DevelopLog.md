@@ -81,8 +81,11 @@ http://localhost:8080/swagger-ui.html
 
 - [] sign up/sign in
 - [] view the most popular sku
-- [v] view all vehicle
-- [v] view all sku for one vehicle
+
+- [view all vehicle](https://github.com/ParrySMS/PocketRentalCompany/issues/11)
+
+- [view all SKUs for one vehicle](https://github.com/ParrySMS/PocketRentalCompany/issues/12)
+
 - [v] view available vehicle for selected rental period
 - [v] choose one sku and show the price, change rental period and show the new price
 - [v] add the {SKU + period} into order
@@ -94,10 +97,6 @@ http://localhost:8080/swagger-ui.html
 ## API 
 
 set the userID in the http header
-
-GET  /vehicles
-
-GET  /vehicles/{vid}/skus
 
 GET  /vehicles?from={start_day}&end={end_day}
 
