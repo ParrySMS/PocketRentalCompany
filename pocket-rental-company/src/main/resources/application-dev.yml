@@ -5,7 +5,7 @@ spring:
     driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
     url: jdbc:sqlserver://demo-company.database.windows.net:1433;database=demo;
     username: parrysms@demo-company
-    password: {your_password}
+    password: P@ssWord2az
     maxActive: 20
     initialSize: 1
     maxWait: 60000

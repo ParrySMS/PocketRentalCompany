@@ -45,26 +45,25 @@ public class ValidateUtil {
         }
     }
 
-    public static Date parseDate(String dateString) throws ValidationException, ParseException {
+    public static Optional<Date> parseDate(String dateString) throws ValidationException, ParseException {
         return parseDate(dateString, null, false);
     }
 
-    public static Date parseDate(String dateString, Date defaultDate, boolean isThrowException) throws ValidationException, ParseException {
-        Date date;
+    public static Optional<Date> parseDate(String dateString, Date defaultDate, boolean isThrowException) throws ValidationException, ParseException {
         if (dateString == null || dateString.isEmpty() || dateString.isBlank()) {
             if (isThrowException) {
                 throw new ValidationException("parse dateString error");
             }
-            return defaultDate;
+            return Optional.of(defaultDate);
         }
 
         SimpleDateFormat formatter = new SimpleDateFormat(YMD_DATE_FORMAT);
-        date = formatter.parse(dateString);
+        Date date = formatter.parse(dateString);
         Date validDate = Optional.of(date).orElse(defaultDate);
         if (validDate == defaultDate && isThrowException) {
             throw new ValidationException("parse date error");
         }
-        return validDate;
+        return Optional.of(validDate);
     }
 
     public static class Friendly {

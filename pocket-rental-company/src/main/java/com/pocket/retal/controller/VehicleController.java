@@ -10,7 +10,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.ParseException;
+import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @CrossOrigin
 @RestController
@@ -25,9 +28,17 @@ public class VehicleController {
     }
 
     @GetMapping("")
-    public ResponseEntity<ApiResult<List<VehicleDTO>>> getVehicles() {
+    public ResponseEntity<ApiResult<List<VehicleDTO>>> getVehicles(
+            @RequestParam(value = "startDate", required = false) String startDateStr,
+            @RequestParam(value = "endDate", required = false) String endDateStr) throws ParseException {
+        Optional<Date> startDate = ValidateUtil.parseDate(startDateStr);
+        Optional<Date> endDate = ValidateUtil.parseDate(endDateStr);
+        if (startDate.isPresent() && endDate.isPresent()) {
+            ValidateUtil.Friendly.assertFalse(endDate.get().before(startDate.get()),
+                    "endDate should not before startDate");
+        }
         try {
-            return ApiResult.ok(vehicleService.getVehicles());
+            return ApiResult.ok(vehicleService.getVehicles(startDate, endDate));
         } catch (Exception e) {
             return ApiResult.failed(e.getMessage());
         }

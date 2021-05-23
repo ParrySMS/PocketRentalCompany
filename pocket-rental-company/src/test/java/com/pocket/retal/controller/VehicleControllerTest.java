@@ -5,6 +5,8 @@ import com.pocket.retal.service.VehicleService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.text.ParseException;
+
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.*;
 
@@ -14,11 +16,11 @@ class VehicleControllerTest {
     private VehicleService vehicleService = mock(VehicleService.class);
 
     @Test
-    void getVehicles_normalFirstPage_returnApiResultOK() {
+    void getVehicles_normalFirstPage_returnApiResultOK() throws ParseException {
         when(vehicleService.getVehicles())
                 .thenReturn(MockRepo.getSomeMockVehicles());
         vehicleController = new VehicleController(vehicleService);
-        var apiResult = vehicleController.getVehicles();
+        var apiResult = vehicleController.getVehicles("", "");
 
         Assertions.assertNotNull(apiResult);
         Assertions.assertNotNull(apiResult.getBody());
@@ -40,10 +42,10 @@ class VehicleControllerTest {
     }
 
     @Test
-    void getVehicles_exception_returnApiResultFailed() {
+    void getVehicles_exception_returnApiResultFailed() throws ParseException {
         doThrow(new IllegalStateException()).when(vehicleService).getVehicles();
         vehicleController = new VehicleController(vehicleService);
-        var apiResult = vehicleController.getVehicles();
+        var apiResult = vehicleController.getVehicles("", "");
 
         Assertions.assertNotNull(apiResult);
         Assertions.assertNotNull(apiResult.getBody());
