@@ -107,6 +107,27 @@ PUT /orders/{orderId}  {body}
 
 GET /orders
 
-## Deployment
+## Deployment Guide
 
 https://docs.microsoft.com/zh-cn/azure/app-service/deploy-local-git?tabs=portal
+
+
+## Final
+
+Solution design document:
+
+API spec doc: 
+
+API spec Swagger: http://demo-company.azurewebsites.net/swagger-ui.html#/
+
+Test cases (Unit test):
+
+Tech introduction doc: https://github.com/ParrySMS/PocketRentalCompany/blob/main/README.md
+
+More Details
+- The User Story: 
+- The issues that have been done: https://github.com/ParrySMS/PocketRentalCompany/issues?q=is%3Aissue+assignee%3AParrySMS+
+- The open issues that need to do: https://github.com/ParrySMS/PocketRentalCompany/issues
+- The releases: https://github.com/ParrySMS/PocketRentalCompany/releases
+
+ 

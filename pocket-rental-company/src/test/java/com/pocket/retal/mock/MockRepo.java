@@ -1,9 +1,11 @@
 package com.pocket.retal.mock;
 
+import com.pocket.retal.model.dto.RentalScheduleVehicleSkuDTO;
 import com.pocket.retal.model.dto.VehicleDTO;
 import com.pocket.retal.model.dto.VehicleSkuDTO;
 
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 public class MockRepo {
@@ -36,5 +38,21 @@ public class MockRepo {
                 .description("good car.")
                 .build();
         return Arrays.asList(mockVehicle1, mockVehicle2);
+    }
+
+    public static RentalScheduleVehicleSkuDTO getRentalScheduleVehicleSku(String skuGuid,
+                                                                          int vehicleId,
+                                                                          Date startTime,
+                                                                          Date endTime) {
+        return RentalScheduleVehicleSkuDTO.builder()
+                .skuGuid(skuGuid)
+                .vehicleId(vehicleId)
+                .vehicleName("mockVehicle1")
+                .vehicleModelYear(2020)
+                .startTime(startTime)
+                .endTime(endTime)
+                .schedulePrice("123")
+                .rentalOrderId(1)
+                .build();
     }
 }

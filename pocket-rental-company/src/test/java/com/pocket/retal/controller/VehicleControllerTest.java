@@ -17,7 +17,7 @@ class VehicleControllerTest {
 
     @Test
     void getVehicles_normalFirstPage_returnApiResultOK() throws ParseException {
-        when(vehicleService.getVehicles(any(), any()))
+        when(vehicleService.getVehiclesWithDates(any(), any()))
                 .thenReturn(MockRepo.getSomeMockVehicles());
         vehicleController = new VehicleController(vehicleService);
         var apiResult = vehicleController.getVehicles("", "");
@@ -41,25 +41,6 @@ class VehicleControllerTest {
         Assertions.assertFalse(apiResult.getBody().data.isEmpty());
     }
 
-    @Test
-    void getVehicles_exception_returnApiResultFailed() throws ParseException {
-        doThrow(new IllegalStateException()).when(vehicleService).getVehicles(any(), any());
-        vehicleController = new VehicleController(vehicleService);
-        var apiResult = vehicleController.getVehicles("", "");
-
-        Assertions.assertNotNull(apiResult);
-        Assertions.assertNotNull(apiResult.getBody());
-        Assertions.assertFalse(apiResult.getBody().status);
-
-
-        doThrow(new IllegalStateException()).when(vehicleService).getVehicles(anyInt(), anyInt());
-        vehicleController = new VehicleController(vehicleService);
-        apiResult = vehicleController.getVehicles(2, 100);
-
-        Assertions.assertNotNull(apiResult);
-        Assertions.assertNotNull(apiResult.getBody());
-        Assertions.assertFalse(apiResult.getBody().status);
-    }
 
     @Test
     void getAllSkusFromOneVehicle_normalFirstPage_returnApiResultOK() {
@@ -89,24 +70,4 @@ class VehicleControllerTest {
         Assertions.assertFalse(apiResult.getBody().data.isEmpty());
     }
 
-    @Test
-    void getAllSkusFromOneVehicle_exception_returnApiResultFailed() {
-        int mockVehicleId = 56;
-        doThrow(new IllegalStateException()).when(vehicleService).getAllSkusFromOneVehicle(mockVehicleId);
-        vehicleController = new VehicleController(vehicleService);
-        var apiResult = vehicleController.getAllSkusFromOneVehicle(mockVehicleId);
-
-        Assertions.assertNotNull(apiResult);
-        Assertions.assertNotNull(apiResult.getBody());
-        Assertions.assertFalse(apiResult.getBody().status);
-
-
-        doThrow(new IllegalStateException()).when(vehicleService).getAllSkusFromOneVehicle(eq(mockVehicleId), anyInt(), anyInt());
-        vehicleController = new VehicleController(vehicleService);
-        apiResult = vehicleController.getAllSkusFromOneVehicle(mockVehicleId, 2, 100);
-
-        Assertions.assertNotNull(apiResult);
-        Assertions.assertNotNull(apiResult.getBody());
-        Assertions.assertFalse(apiResult.getBody().status);
-    }
 }
