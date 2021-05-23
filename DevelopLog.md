@@ -116,16 +116,13 @@ https://docs.microsoft.com/zh-cn/azure/app-service/deploy-local-git?tabs=portal
 
 Solution design document:
 
-API spec doc: 
-
 API spec Swagger: http://demo-company.azurewebsites.net/swagger-ui.html#/
 
-Test cases (Unit test):
+Test cases (Unit test): https://github.com/ParrySMS/PocketRentalCompany/tree/main/pocket-rental-company/src/test/java/com/pocket/retal
 
 Tech introduction doc: https://github.com/ParrySMS/PocketRentalCompany/blob/main/README.md
 
-More Details
-- The User Story: 
+More Details:
 - The issues that have been done: https://github.com/ParrySMS/PocketRentalCompany/issues?q=is%3Aissue+assignee%3AParrySMS+
 - The open issues that need to do: https://github.com/ParrySMS/PocketRentalCompany/issues
 - The releases: https://github.com/ParrySMS/PocketRentalCompany/releases
