@@ -1,7 +1,6 @@
 # PocketRentalCompany
 Pocket, a new car rental company, help you rent a car to travel to the world.
 
-
 [![standard-readme compliant](https://img.shields.io/badge/readme%20style-standard-brightgreen.svg?style=flat-square)]()
 
 Repository: https://github.com/ParrySMS/PocketRentalCompany
@@ -75,10 +74,10 @@ You can also just intput your local or remote SQL Server configuration refer to 
 
 - `\pocket-rental-company\src\main\resources\application-dev.yml`
 
-![1621754862671](README.assets/1621754862671.png)
+![1621754862671](./README.assets/1621754862671.png)
 
 - `\storage\db-sql-server\src\main\resources\application.yaml`
-![1621754933300](README.assets/1621754933300.png)
+![1621754933300](./README.assets/1621754933300.png)
 
 ### 4 Migration for the Database
 
@@ -92,15 +91,15 @@ You can find more details from the Flyway document.
 
 [https://flywaydb.org/documentation/getstarted/why](https://flywaydb.org/documentation/getstarted/why)
 
-![1621755190544](README.assets/1621755190544.png)
+![1621755190544](./README.assetsts/1621755190544.png)
 
 After the program finish the database migration. You should view the INFO row as below.
 `INFO: Successfully applied X migrations to xxxxxxx`
-![1621755625566](README.assets/1621755625566.png)
+![1621755625566](./README.assets/1621755625566.png)
 
 You will find your empty database have a migration to the latest project database.
 
-![1621755777839](README.assets/1621755777839.png)
+![1621755777839](./README.assets/1621755777839.png)
 
 ### 5 Run API project and view the swagger
 
@@ -110,7 +109,7 @@ If you have your own profiles environment, please input into the `Program argume
 
 `--spring.profiles.active=dev `
 
-![1621755906088](README.assets/1621755906088.png)
+![1621755906088](./README.assets/1621755906088.png)
 
 
 
@@ -118,16 +117,16 @@ You can view you Swagger here: http://localhost:8080/swagger-ui.html#
 
 All the APIs are work and executable in the webpage.
 
-![1621756083365](README.assets/1621756083365.png)
+![1621756083365](./README.assets/1621756083365.png)
 
 
 ## The SpringBoot API project
 
 The construction for the API project is simple.
 
-![1621757957896](README.assets/1621757957896.png)
+![1621757957896](./README.assets/1621757957896.png)
 
-![1621757140609](README.assets/1621757140609.png)
+![1621757140609](./README.assets/1621757140609.png)
 
 
 
@@ -264,11 +263,11 @@ In order to be picked up by Flyway, SQL migrations must comply with the followin
 
 #### Versioned Migrations
 
-![1621758588355](README.assets/1621758588355.png)
+![1621758588355](./README.assets/1621758588355.png)
 
 #### Repeatable Migrations
 
-![1621758594698](README.assets/1621758594698.png)
+![1621758594698](./README.assetsts/1621758594698.png)
 
 The file name consists of the following parts:
 
