@@ -1,12 +1,14 @@
 package com.pocket.retal.service;
 
 import com.pocket.retal.mock.MockRepo;
+import com.pocket.retal.repository.RentalScheduleRepository;
 import com.pocket.retal.repository.SkuRepository;
 import com.pocket.retal.repository.VehicleRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.*;
@@ -15,6 +17,7 @@ class VehicleServiceTest {
 
     private VehicleService vehicleService;
     private VehicleRepository vehicleRepository = mock(VehicleRepository.class);
+    private RentalScheduleRepository rentalScheduleRepository = mock(RentalScheduleRepository.class);
     private SkuRepository skuRepository = mock(SkuRepository.class);
 
     @Test
@@ -26,6 +29,54 @@ class VehicleServiceTest {
 
         Assertions.assertNotNull(vehicles);
         Assertions.assertFalse(vehicles.isEmpty());
+    }
+
+    @Test
+    void getVehicles_withBothNullDateParam_returnList() {
+        when(vehicleRepository.selectAllVehicles(anyInt(), anyInt()))
+                .thenReturn(MockRepo.getSomeMockVehicles());
+        vehicleService = new VehicleService(vehicleRepository);
+        var vehicles = vehicleService.getVehiclesWithDates(null, null);
+
+        Assertions.assertNotNull(vehicles);
+        Assertions.assertFalse(vehicles.isEmpty());
+    }
+
+    @Test
+    void getVehicles_withBothNonNullDateParam_returnList() {
+        when(vehicleRepository.selectAllVehicles(anyInt(), anyInt()))
+                .thenReturn(MockRepo.getSomeMockVehicles());
+
+        when(rentalScheduleRepository.getRentalScheduleVehicleSkus(any(), any()))
+                .thenReturn(new ArrayList<>());
+
+        vehicleService = new VehicleService(vehicleRepository, skuRepository, rentalScheduleRepository);
+        var date = new Date();
+
+        var vehicles = vehicleService.getVehiclesWithDates(date, date);
+        Assertions.assertNotNull(vehicles);
+        Assertions.assertFalse(vehicles.isEmpty());
+    }
+
+
+    @Test
+    void getVehicles_withOneNullOneNonNullDateParam_returnList() {
+        when(vehicleRepository.selectAllVehicles(anyInt(), anyInt()))
+                .thenReturn(MockRepo.getSomeMockVehicles());
+
+        when(rentalScheduleRepository.getRentalScheduleVehicleSkus(any(), any()))
+                .thenReturn(new ArrayList<>());
+
+        vehicleService = new VehicleService(vehicleRepository, skuRepository, rentalScheduleRepository);
+        var date = new Date();
+
+        var vehiclesStartDateNull = vehicleService.getVehiclesWithDates(null, date);
+        Assertions.assertNotNull(vehiclesStartDateNull);
+        Assertions.assertFalse(vehiclesStartDateNull.isEmpty());
+
+        var vehiclesEndDateNull = vehicleService.getVehiclesWithDates(date, null);
+        Assertions.assertNotNull(vehiclesEndDateNull);
+        Assertions.assertFalse(vehiclesEndDateNull.isEmpty());
     }
 
     @Test
@@ -84,5 +135,29 @@ class VehicleServiceTest {
 
         Assertions.assertNotNull(skus);
         Assertions.assertTrue(skus.isEmpty());
+    }
+
+    @Test
+    void getAvailableVehicles() {
+    }
+
+    @Test
+    void getRentalScheduleVehicleSkus() {
+    }
+
+    @Test
+    void fixSkuAvailableDate() {
+    }
+
+    @Test
+    void breakAvailableTimeInterval() {
+    }
+
+    @Test
+    void buildSkuServiceDate() {
+    }
+
+    @Test
+    void buildFreeSkuAvailableDate() {
     }
 }
