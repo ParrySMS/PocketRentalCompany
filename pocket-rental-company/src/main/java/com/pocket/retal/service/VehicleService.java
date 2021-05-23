@@ -5,6 +5,7 @@ import com.pocket.retal.model.*;
 import com.pocket.retal.model.dto.RentalScheduleVehicleSkuDTO;
 import com.pocket.retal.model.dto.VehicleDTO;
 import com.pocket.retal.model.dto.VehicleSkuDTO;
+import com.pocket.retal.repository.RentalScheduleRepository;
 import com.pocket.retal.repository.SkuRepository;
 import com.pocket.retal.repository.VehicleRepository;
 import com.pocket.retal.util.DateUtil;
@@ -21,12 +22,15 @@ public class VehicleService {
 
     private VehicleRepository vehicleRepository;
     private SkuRepository skuRepository;
+    private RentalScheduleRepository rentalScheduleRepository;
 
     @Autowired
     public VehicleService(VehicleRepository vehicleRepository,
-                          SkuRepository skuRepository) {
+                          SkuRepository skuRepository,
+                          RentalScheduleRepository rentalScheduleRepository) {
         this.vehicleRepository = vehicleRepository;
         this.skuRepository = skuRepository;
+        this.rentalScheduleRepository = rentalScheduleRepository;
     }
 
     public VehicleService(VehicleRepository vehicleRepository) {
@@ -74,7 +78,7 @@ public class VehicleService {
     }
 
     public List<VehicleDTO> getAvailableVehicles(Date startDate, Date endDate) {
-        List<RentalScheduleVehicleSkuDTO> scheduleSkuList = getRentalScheduleSkus(startDate, endDate);
+        List<RentalScheduleVehicleSkuDTO> scheduleSkuList = getRentalScheduleVehicleSkus(startDate, endDate);
         if (scheduleSkuList == null || scheduleSkuList.isEmpty()) {
             return getVehicles();
         }
@@ -116,9 +120,12 @@ public class VehicleService {
         return skuList;
     }
 
-    public List<RentalScheduleVehicleSkuDTO> getRentalScheduleSkus(Date startDate, Date endDate) {
-        //TODO:
-        return new ArrayList<>();
+    public List<RentalScheduleVehicleSkuDTO> getRentalScheduleVehicleSkus(Date startDate, Date endDate) {
+        List<RentalScheduleVehicleSkuDTO> rentalScheduleVehicleSkus = rentalScheduleRepository.getRentalScheduleVehicleSkus(startDate, endDate);
+        if (rentalScheduleVehicleSkus == null) {
+            rentalScheduleVehicleSkus = new ArrayList<>();
+        }
+        return rentalScheduleVehicleSkus;
     }
 
     public void fixSkuAvailableDate(Map<String, SkuAvailableDate> skuGuidMapSkuAvailableDate,
