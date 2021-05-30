@@ -38,35 +38,35 @@ INSERT [pocket].[pocket_sku_price] (sku_guid, price_frequency_id, price, create_
 
 -- BWM 3
 INSERT [pocket].[pocket_sku_price] (sku_guid, price_frequency_id, price, create_on, last_modified)
-    VALUES ('bkq29752-b794-4703-541j-fa3d6h9l0105', 1, '180.00', GETDATE(), GETDATE()) -- Daily
+    VALUES ('006ca2f8-a8df-43cc-b85e-59208b3635bc', 1, '180.00', GETDATE(), GETDATE()) -- Daily
 
 INSERT [pocket].[pocket_sku_price] (sku_guid, price_frequency_id, price, create_on, last_modified)
-    VALUES ('bkq29752-b794-4703-541j-fa3d6h9l0105', 2, '1230.00', GETDATE(), GETDATE()) -- Weekly
+    VALUES ('006ca2f8-a8df-43cc-b85e-59208b3635bc', 2, '1230.00', GETDATE(), GETDATE()) -- Weekly
 
 INSERT [pocket].[pocket_sku_price] (sku_guid, price_frequency_id, price, create_on, last_modified)
-    VALUES ('bkq29752-b794-4703-541j-fa3d6h9l0105', 3, '4420.00', GETDATE(), GETDATE()) -- Monthly
+    VALUES ('006ca2f8-a8df-43cc-b85e-59208b3635bc', 3, '4420.00', GETDATE(), GETDATE()) -- Monthly
 
 INSERT [pocket].[pocket_sku_price] (sku_guid, price_frequency_id, price, create_on, last_modified)
-    VALUES ('bkq29752-b794-4703-541j-fa3d6h9l0105', 4, '25000.00', GETDATE(), GETDATE()) -- Half-Yearly
+    VALUES ('006ca2f8-a8df-43cc-b85e-59208b3635bc', 4, '25000.00', GETDATE(), GETDATE()) -- Half-Yearly
 
 INSERT [pocket].[pocket_sku_price] (sku_guid, price_frequency_id, price, create_on, last_modified)
-    VALUES ('bkq29752-b794-4703-541j-fa3d6h9l0105', 5, '50000.00', GETDATE(), GETDATE()) -- Yearly
+    VALUES ('006ca2f8-a8df-43cc-b85e-59208b3635bc', 5, '50000.00', GETDATE(), GETDATE()) -- Yearly
 
 
 -- BWM 4
 INSERT [pocket].[pocket_sku_price] (sku_guid, price_frequency_id, price, create_on, last_modified)
-    VALUES ('b7155a02-4558-4956-bba9-d77e9e75ca32', 1, '210.00', GETDATE(), GETDATE()) -- Daily
+    VALUES ('341dbdc5-4a62-48ed-a146-e86078e949a2', 1, '210.00', GETDATE(), GETDATE()) -- Daily
 
 INSERT [pocket].[pocket_sku_price] (sku_guid, price_frequency_id, price, create_on, last_modified)
-    VALUES ('b7155a02-4558-4956-bba9-d77e9e75ca32', 2, '1300.00', GETDATE(), GETDATE()) -- Weekly
+    VALUES ('341dbdc5-4a62-48ed-a146-e86078e949a2', 2, '1300.00', GETDATE(), GETDATE()) -- Weekly
 
 INSERT [pocket].[pocket_sku_price] (sku_guid, price_frequency_id, price, create_on, last_modified)
-    VALUES ('b7155a02-4558-4956-bba9-d77e9e75ca32', 3, '4650.00', GETDATE(), GETDATE()) -- Monthly
+    VALUES ('341dbdc5-4a62-48ed-a146-e86078e949a2', 3, '4650.00', GETDATE(), GETDATE()) -- Monthly
 
 INSERT [pocket].[pocket_sku_price] (sku_guid, price_frequency_id, price, create_on, last_modified)
-    VALUES ('b7155a02-4558-4956-bba9-d77e9e75ca32', 4, '26500.00', GETDATE(), GETDATE()) -- Half-Yearly
+    VALUES ('341dbdc5-4a62-48ed-a146-e86078e949a2', 4, '26500.00', GETDATE(), GETDATE()) -- Half-Yearly
 
 INSERT [pocket].[pocket_sku_price] (sku_guid, price_frequency_id, price, create_on, last_modified)
-    VALUES ('b7155a02-4558-4956-bba9-d77e9e75ca32', 5, '51800.00', GETDATE(), GETDATE()) -- Yearly
+    VALUES ('341dbdc5-4a62-48ed-a146-e86078e949a2', 5, '51800.00', GETDATE(), GETDATE()) -- Yearly
 
 GO

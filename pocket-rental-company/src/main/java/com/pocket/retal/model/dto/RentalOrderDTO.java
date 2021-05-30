@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.Date;
+import java.util.List;
 
 @Builder
 @Data
@@ -17,6 +18,6 @@ public class RentalOrderDTO {
     Integer clientId;
     Date signingTime;
     String totalPrice;
-    @JsonProperty("rentalSchedule")
-    RentalScheduleDTO rentalScheduleDTO;
+    @JsonProperty("rentalSchedules")
+    List<RentalScheduleDTO> rentalScheduleDTO;
 }

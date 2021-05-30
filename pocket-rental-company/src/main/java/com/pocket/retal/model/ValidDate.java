@@ -1,4 +1,4 @@
-package com.pocket.retal.model.dto;
+package com.pocket.retal.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -7,13 +7,11 @@ import lombok.NoArgsConstructor;
 
 import java.util.Date;
 
-@Builder
 @Data
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class RentalScheduleDTO {
-    String skuGuid;
-    Date startTime;
-    Date endTime;
-    String schedulePrice;
+public class ValidDate {
+    Date startDate;
+    Date endDate;
 }
