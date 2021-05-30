@@ -1,7 +1,7 @@
 package com.pocket.retal.exception;
 
 
-import com.pocket.retal.model.PocketResponseStatus;
+import com.pocket.retal.model.enumeration.PocketResponseStatus;
 
 public class PocketApiException extends RuntimeException {
     private PocketResponseStatus pocketResponseStatus;

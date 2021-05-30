@@ -9,8 +9,9 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class VehicleSkuDTO {
-    Integer vehicleId;
+public class SkuPriceDTO {
     String skuGuid;
-    String color;
+    Integer priceFrequencyId;
+    String price;
+    String frequencyType;
 }

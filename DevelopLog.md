@@ -114,24 +114,23 @@ https://docs.microsoft.com/zh-cn/azure/app-service/deploy-local-git?tabs=portal
 
 ## Final
 
-Git Repository: https://github.com/ParrySMS/PocketRentalCompany/tree/develop
 
-Solution design document: https://github.com/ParrySMS/PocketRentalCompany/blob/develop/software%20design%20document.md
+Git Repository: https://github.com/ParrySMS/PocketRentalCompany/tree/develop 
 
-API Spec Swagger: http://demo-company.azurewebsites.net/swagger-ui.html#/
+Solution design document: https://github.com/ParrySMS/PocketRentalCompany/blob/develop/software%20design%20document.md 
 
-Test cases (Unit test): https://github.com/ParrySMS/PocketRentalCompany/tree/develop/pocket-rental-company/src/test/java/com/pocket/retal
+API Spec Swagger: http://demo-company.azurewebsites.net/swagger-ui.html#/ 
 
-Tech introduction doc: https://github.com/ParrySMS/PocketRentalCompany/blob/develop/README.md
+Test cases (Unit test): https://github.com/ParrySMS/PocketRentalCompany/tree/develop/pocket-rental-company/src/test/java/com/pocket/retal 
+
+Tech introduction doc: https://github.com/ParrySMS/PocketRentalCompany/blob/develop/README.md 
 
 More Details:
 
-- The issues that have been done: https://github.com/ParrySMS/PocketRentalCompany/issues?q=is%3Aissue+assignee%3AParrySMS+
+- The issues that have been done: https://github.com/ParrySMS/PocketRentalCompany/issues?q=is%3Aissue+assignee%3AParrySMS+ 
 
-- The open issues that need to do: https://github.com/ParrySMS/PocketRentalCompany/issues
+- The open issues that need to do: https://github.com/ParrySMS/PocketRentalCompany/issues 
 
-- The releases: https://github.com/ParrySMS/PocketRentalCompany/releases
+- The releases: https://github.com/ParrySMS/PocketRentalCompany/releases 
 
-- SQL migration: https://github.com/ParrySMS/PocketRentalCompany/tree/develop/storage/db-sql-server/src/main/resources/db/migration
-
- 
+- SQL migration: https://github.com/ParrySMS/PocketRentalCompany/tree/develop/storage/db-sql-server/src/main/resources/db/migration 

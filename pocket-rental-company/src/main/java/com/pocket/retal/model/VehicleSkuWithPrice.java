@@ -1,4 +1,4 @@
-package com.pocket.retal.model.dto;
+package com.pocket.retal.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -7,10 +7,12 @@ import lombok.NoArgsConstructor;
 
 @Data
 @Builder
-@NoArgsConstructor
 @AllArgsConstructor
-public class VehicleSkuDTO {
+@NoArgsConstructor
+public class VehicleSkuWithPrice {
     Integer vehicleId;
     String skuGuid;
     String color;
+    String skuPrice;
+    String averageDailyPrice;
 }
