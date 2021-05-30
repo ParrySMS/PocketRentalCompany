@@ -29,19 +29,19 @@ Flyway Service for database migration
 
 ### API Design
 
-| Feature                                      | url                                                          |
-| -------------------------------------------- | ------------------------------------------------------------ |
-| get all vehicles                             | GET /vehicles/{offset}/{pageSize}                            |
-| get all SKUs for one vehicle                 | GET   /vehicles/{vehicleId}/skus                             |
-| get all SKUs for one vehicle                 | GET   /vehicles/{vehicleId}/skus/{offset}/{pageSize}         |
-| get available vehicles in selected period    | GET    /vehicles?startDate={startDate}&endDate={endDate}     |
-| get the price for one SKU in selected period | GET    /vehicles/{vehiclesId}/sku/{skuId}/price?startDate={startDate}&endDate={endDate} |
-|                                              |                                                              |
-| create an order for a SKU in selected period | POST /orders                                                 |
-| add other SKU in other selected period       | PUT /orders/{orderId}                                        |
-| update the original rental schedule          | PUT /orders/{orderId}/{rentalScheduleId}                     |
-| list one order                               | GET /orders/{orderId}/client/{clientId}                      |
-| list all orders                              | GET /orders/client/{clientId}                                |
+| Feature                                          | url                                                          |
+| ------------------------------------------------ | ------------------------------------------------------------ |
+| **get all vehicles**                             | GET /vehicles/{offset}/{pageSize}                            |
+| **get all SKUs for one vehicle**                 | GET   /vehicles/{vehicleId}/skus                             |
+| **get all SKUs for one vehicle**                 | GET   /vehicles/{vehicleId}/skus/{offset}/{pageSize}         |
+| **get available vehicles in selected period**    | GET    /vehicles?startDate={startDate}&endDate={endDate}     |
+| **get the price for one SKU in selected period** | GET    /vehicles/{vehiclesId}/sku/{skuId}/price?startDate={startDate}&endDate={endDate} |
+|                                                  |                                                              |
+| **create an order for a SKU in selected period** | POST /orders                                                 |
+| add other SKU in other selected period           | PUT /orders/{orderId}/client/{clientId}                      |
+| update the original rental schedule              | PUT /orders/{orderId}/{rentalScheduleId}                     |
+| **list one order**                               | GET /orders/{orderId}/client/{clientId}                      |
+| **list all orders**                              | GET /orders/client/{clientId}                                |
 
 
 ## Database

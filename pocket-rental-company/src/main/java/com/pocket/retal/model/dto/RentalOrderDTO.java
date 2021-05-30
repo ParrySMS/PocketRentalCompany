@@ -1,5 +1,6 @@
 package com.pocket.retal.model.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -12,8 +13,10 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 public class RentalOrderDTO {
-    public Integer orderId;
-    public Integer clientId;
-    public Date signingTime;
-    public String totalPrice;
+    Integer orderId;
+    Integer clientId;
+    Date signingTime;
+    String totalPrice;
+    @JsonProperty("rentalSchedule")
+    RentalScheduleDTO rentalScheduleDTO;
 }
