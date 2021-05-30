@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class VehicleSkuDTO {
-    int vehicleId;
+    Integer vehicleId;
     String skuGuid;
     String color;
 }

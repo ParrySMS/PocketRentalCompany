@@ -14,9 +14,13 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 @ControllerAdvice
 @Slf4j
 public class CustomizedExceptionHandler extends ResponseEntityExceptionHandler {
+    // TODO: this shoule be set as the config for Env params
+    public static boolean ENABLE_DETAIL_MESSAGE = true;
+    public static String DEFAULT_MESSAGE = "System error.";
+
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ApiResult<Object>> globalExceptionHandler(Exception ex, WebRequest request) {
-        String msg = ex.getMessage() + System.getProperty("line.separator") + request.getParameterMap().toString();
+        String msg = ENABLE_DETAIL_MESSAGE ? ex.getMessage() : DEFAULT_MESSAGE;
         if (ex instanceof ValidationException) {
             return ApiResult.failedWithBadRequest(msg);
         }

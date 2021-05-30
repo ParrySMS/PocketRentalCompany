@@ -21,16 +21,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -274,13 +265,13 @@ public class VehicleService {
         double averageDailyPrice = MathUtil.div(skuPrice, selectedPeriodDays);
         VehicleSkuDTO vehicleSkuDTO = getOneSku(vehicleId, skuGuid);
 
-        return new VehicleSkuWithPrice(
-                vehicleSkuDTO.getVehicleId(),
-                vehicleSkuDTO.getSkuGuid(),
-                vehicleSkuDTO.getColor(),
-                Double.toString(skuPrice),
-                Double.toString(averageDailyPrice)
-        );
+        return VehicleSkuWithPrice.builder()
+                .vehicleId(vehicleSkuDTO.getVehicleId())
+                .skuGuid(vehicleSkuDTO.getSkuGuid())
+                .color(vehicleSkuDTO.getColor())
+                .skuPrice(Double.toString(skuPrice))
+                .averageDailyPrice(Double.toString(averageDailyPrice))
+                .build();
     }
 
     public double getSkuPriceBySumAllFrequencyPrice(List<Integer> priceFrequencyIdList, Map<Integer, String> priceFrequencyIdMapToPriceString, Map<Integer, Integer> priceFrequencyIdMapToFactorUnit) {
@@ -299,7 +290,7 @@ public class VehicleService {
                                        Map<Integer, Integer> priceFrequencyIdMapToFactorUnit) {
         String priceString = priceFrequencyIdMapToPriceString.get(keyPriceFrequencyId);
         String factorUnitString = priceFrequencyIdMapToFactorUnit.get(keyPriceFrequencyId).toString();
-        return MathUtil.multiply(priceString, factorUnitString);
+        return MathUtil.multiplyWithScale(priceString, factorUnitString);
 
     }
 

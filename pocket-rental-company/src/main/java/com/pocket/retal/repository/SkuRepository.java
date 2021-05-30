@@ -30,8 +30,6 @@ public interface SkuRepository {
             " FROM [pocket].[pocket_sku_price] AS p " +
             " LEFT JOIN [pocket].[pocket_price_frequency] AS pf " +
             "   ON p.price_frequency_id = pf.id " +
-            " WHERE p.sku_guid = #{skuGuid} " +
-            "   AND p.price_frequency_id IN " +
             "<where> " +
             "   p.sku_guid = #{skuGuid} " +
             "   <if test='priceFrequencyIdList != null'> " +

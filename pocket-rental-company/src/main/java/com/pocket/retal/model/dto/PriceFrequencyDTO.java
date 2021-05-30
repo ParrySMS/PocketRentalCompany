@@ -10,6 +10,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class PriceFrequencyDTO {
-    private int id;
+    private Integer id;
     private String frequencyType;
 }
