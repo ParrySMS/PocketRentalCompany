@@ -12,9 +12,9 @@ INSERT [pocket].[pocket_sku] (sku_guid, vehicle_id, color, create_on, last_modif
 
 -- BWM
 INSERT [pocket].[pocket_sku] (sku_guid, vehicle_id, color, create_on, last_modified)
-    VALUES ('bkq29752-b794-4703-541j-fa3d6h9l0105', 2, 'SUPER WHITE', GETDATE(), GETDATE())  -- id:3
+    VALUES ('006ca2f8-a8df-43cc-b85e-59208b3635bc', 2, 'SUPER WHITE', GETDATE(), GETDATE())  -- id:3
 
 INSERT [pocket].[pocket_sku] (sku_guid, vehicle_id, color, create_on, last_modified)
-    VALUES ('b7155a02-4558-4956-bba9-d77e9e75ca32', 2, 'BLUEPRINT', GETDATE(), GETDATE())  -- id:4
+    VALUES ('341dbdc5-4a62-48ed-a146-e86078e949a2', 2, 'BLUEPRINT', GETDATE(), GETDATE())  -- id:4
 
 GO

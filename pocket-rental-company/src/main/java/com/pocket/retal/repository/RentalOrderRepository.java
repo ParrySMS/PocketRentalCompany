@@ -1,6 +1,7 @@
 package com.pocket.retal.repository;
 
 import com.pocket.retal.model.dto.RentalOrderDTO;
+import com.pocket.retal.model.dto.RentalScheduleDTO;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Options;
@@ -27,7 +28,7 @@ public interface RentalOrderRepository {
             "   signing_time, " +
             "   total_price " +
             " FROM [pocket].[pocket_rental_order] " +
-            " WHERE client_id = #{clientId}" +
+            " WHERE client_id = #{clientId} " +
             "</script>"})
     List<RentalOrderDTO> selectAllOrders(int clientId);
 
@@ -42,4 +43,21 @@ public interface RentalOrderRepository {
             "   AND id = #{orderId}" +
             "</script>"})
     RentalOrderDTO selectOneOrderByClient(int clientId, int orderId);
+
+    @Select({"<script> " +
+            " SELECT " +
+            "   schedule.sku_guid, " +
+            "   schedule.start_time, " +
+            "   schedule.end_time, " +
+            "   schedule.schedule_price " +
+            " FROM [pocket].[pocket_rental_schedule] AS schedule " +
+            " LEFT JOIN [pocket].[pocket_rental_order] AS rentalOrder " +
+            "   ON rentalOrder.id = schedule.rental_order_id" +
+            " WHERE rentalOrder.client_id = #{clientId} " +
+            "   AND rentalOrder.id = #{orderId}" +
+            "</script>"})
+    List<RentalScheduleDTO> selectAllSchedulesInOneOrderByClient(int clientId, int orderId);
+
+    // TODO:
+    int updateTotalPrice(int orderId, String skuPriceString);
 }

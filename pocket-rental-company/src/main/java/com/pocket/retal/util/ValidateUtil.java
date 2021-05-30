@@ -2,6 +2,7 @@ package com.pocket.retal.util;
 
 import com.pocket.retal.exception.PocketApiException;
 import com.pocket.retal.exception.ValidationException;
+import com.pocket.retal.model.ValidDate;
 import com.pocket.retal.model.enumeration.PocketResponseStatus;
 
 import java.text.ParseException;
@@ -100,5 +101,24 @@ public class ValidateUtil {
                     PocketResponseStatus.SYSTEM_INTERNAL_ERROR,
                     "effectRows != expectedNum on " + reposName);
         }
+    }
+
+    public static ValidDate getValidDate(String startDateStr, String endDateStr) throws ParseException {
+        Date startDate = parseDate(startDateStr, null, true);
+        Date endDate = parseDate(endDateStr, null, true);
+        Date today = new Date();
+        ValidateUtil.Friendly.assertFalse(startDate.before(today),
+                "startDate should not before today");
+        ValidateUtil.Friendly.assertFalse(endDate.before(today),
+                "endDate should not before today");
+        ValidateUtil.Friendly.assertFalse(endDate.before(startDate),
+                "endDate should not before startDate");
+        ValidateUtil.Friendly.assertFalse(endDate.equals(startDate),
+                "endDate should not be the same as startDate");
+
+        return ValidDate.builder()
+                .startDate(startDate)
+                .endDate(endDate)
+                .build();
     }
 }
