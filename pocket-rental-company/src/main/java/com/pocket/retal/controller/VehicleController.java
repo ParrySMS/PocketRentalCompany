@@ -70,7 +70,7 @@ public class VehicleController {
     }
 
     @GetMapping("/{vehicleId}/skus/{skuGuid}/price")
-    public ResponseEntity<ApiResult<VehicleSkuWithPrice>> getPriceForSkuInSelectedPeriod(
+    public ResponseEntity<ApiResult<VehicleSkuWithPrice>> getVehicleSkuWithPriceInSelectedPeriod(
             @RequestParam(value = "startDate") String startDateStr,
             @RequestParam(value = "endDate") String endDateStr,
             @PathVariable("vehicleId") int vehicleId,
@@ -84,7 +84,7 @@ public class VehicleController {
         ValidateUtil.min(vehicleId, 1, "vehicleId");
         ValidateUtil.notNullOrEmptyOrBlank(skuGuid, "skuGuid");
         ValidateUtil.IsValidUUID(skuGuid, "skuGuid");
-        return ApiResult.ok(vehicleService.getPriceForSkuInSelectedPeriod(vehicleId, skuGuid, startDate, endDate));
+        return ApiResult.ok(vehicleService.getVehicleSkuWithPriceInSelectedPeriod(vehicleId, skuGuid, startDate, endDate));
     }
 
 }

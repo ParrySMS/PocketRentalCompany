@@ -16,11 +16,21 @@ import com.pocket.retal.repository.RentalScheduleRepository;
 import com.pocket.retal.repository.SkuRepository;
 import com.pocket.retal.repository.VehicleRepository;
 import com.pocket.retal.util.DateUtil;
+import com.pocket.retal.util.MathUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -121,6 +131,14 @@ public class VehicleService {
         return skuList;
     }
 
+    public VehicleSkuDTO getOneSku(int vehicleId, String skuGuid) {
+        VehicleSkuDTO vehicleSkuDTO = skuRepository.selectOneSku(vehicleId, skuGuid);
+        if (vehicleSkuDTO == null) {
+            throw new PocketApiException(PocketResponseStatus.SYSTEM_INTERNAL_ERROR, "selectOneSku but vehicleSkuDTO null");
+        }
+        return vehicleSkuDTO;
+    }
+
     public List<RentalScheduleVehicleSkuDTO> getRentalScheduleVehicleSkus(Date startDate, Date endDate) {
         List<RentalScheduleVehicleSkuDTO> rentalScheduleVehicleSkus = rentalScheduleRepository.getRentalScheduleVehicleSkus(startDate, endDate);
         if (rentalScheduleVehicleSkus == null) {
@@ -134,8 +152,7 @@ public class VehicleService {
         var skuGuid = skuServiceDate.getSkuGuid();
         var skuAvailableDate = skuGuidMapSkuAvailableDate.get(skuGuid);
         if (skuAvailableDate == null) {
-            log.error("fixSkuAvailableDate but skuAvailableDate is null");
-            throw new PocketApiException(PocketResponseStatus.SYSTEM_INTERNAL_ERROR);
+            throw new PocketApiException(PocketResponseStatus.SYSTEM_INTERNAL_ERROR, "fixSkuAvailableDate but skuAvailableDate is null");
         }
 
         List<TimeInterval> finalAvailableTimeIntervalList = skuAvailableDate.getAvailableDates().stream()
@@ -240,11 +257,7 @@ public class VehicleService {
 
     }
 
-    public VehicleSkuWithPrice getPriceForSkuInSelectedPeriod(int vehicleId, String skuGuid, Date startDate, Date endDate) {
-        // todo: count the day.
-        // count yearly, monthly, daily price
-        // sum
-
+    public VehicleSkuWithPrice getVehicleSkuWithPriceInSelectedPeriod(int vehicleId, String skuGuid, Date startDate, Date endDate) {
         int selectedPeriodDays = DateUtil.getDaysBetween(startDate, endDate);
         if (selectedPeriodDays == 0) {
             selectedPeriodDays = 1;
@@ -256,8 +269,38 @@ public class VehicleService {
                 SkuPriceDTO::getPrice));
 
         Map<Integer, Integer> priceFrequencyIdMapToFactorUnit = initPriceFrequencyIdMapToFactorUnit(selectedPeriodDays);
-        //todo: mathUtil FactorUnit*PriceString sum to get the total price.
-        return null;
+
+        double skuPrice = getSkuPriceBySumAllFrequencyPrice(priceFrequencyIdList, priceFrequencyIdMapToPriceString, priceFrequencyIdMapToFactorUnit);
+        double averageDailyPrice = MathUtil.div(skuPrice, selectedPeriodDays);
+        VehicleSkuDTO vehicleSkuDTO = getOneSku(vehicleId, skuGuid);
+
+        return new VehicleSkuWithPrice(
+                vehicleSkuDTO.getVehicleId(),
+                vehicleSkuDTO.getSkuGuid(),
+                vehicleSkuDTO.getColor(),
+                Double.toString(skuPrice),
+                Double.toString(averageDailyPrice)
+        );
+    }
+
+    public double getSkuPriceBySumAllFrequencyPrice(List<Integer> priceFrequencyIdList, Map<Integer, String> priceFrequencyIdMapToPriceString, Map<Integer, Integer> priceFrequencyIdMapToFactorUnit) {
+        double skuPrice = priceFrequencyIdList.stream()
+                .mapToDouble(priceFrequencyId -> getOneFrequencyPrice(
+                        priceFrequencyId,
+                        priceFrequencyIdMapToPriceString,
+                        priceFrequencyIdMapToFactorUnit))
+                .sum();
+
+        return MathUtil.round(skuPrice);
+    }
+
+    public double getOneFrequencyPrice(int keyPriceFrequencyId,
+                                       Map<Integer, String> priceFrequencyIdMapToPriceString,
+                                       Map<Integer, Integer> priceFrequencyIdMapToFactorUnit) {
+        String priceString = priceFrequencyIdMapToPriceString.get(keyPriceFrequencyId);
+        String factorUnitString = priceFrequencyIdMapToFactorUnit.get(keyPriceFrequencyId).toString();
+        return MathUtil.multiply(priceString, factorUnitString);
+
     }
 
     public void priceFrequencyIdMapIncrement(Map<Integer, Integer> priceFrequencyIdMapToFactorUnit, int key, int incrementUnit) {
@@ -295,16 +338,6 @@ public class VehicleService {
         dayUnitWithPriceFrequencyId.put(DateUtil.WEEKLY_DAY_UNIT, PriceFrequency.WEEKLY.getPriceFrequencyId());
         dayUnitWithPriceFrequencyId.put(DateUtil.DAILY_DAY_UNIT, PriceFrequency.DAILY.getPriceFrequencyId());
         return dayUnitWithPriceFrequencyId;
-    }
-
-    private Map<Integer, Integer> getIntegerIntegerMap() {
-        return new HashMap<>() {{
-            put(PriceFrequency.YEARLY.getPriceFrequencyId(), 0);
-            put(PriceFrequency.HALF_YEARLY.getPriceFrequencyId(), 0);
-            put(PriceFrequency.MONTHLY.getPriceFrequencyId(), 0);
-            put(PriceFrequency.WEEKLY.getPriceFrequencyId(), 0);
-            put(PriceFrequency.DAILY.getPriceFrequencyId(), 0);
-        }};
     }
 
     private List<Integer> initPriceFrequencyIdList(int selectedPeriodDays) {

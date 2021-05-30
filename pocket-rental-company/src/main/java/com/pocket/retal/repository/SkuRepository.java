@@ -43,4 +43,15 @@ public interface SkuRepository {
             "</where> " +
             "</script>"})
     List<SkuPriceDTO> getSkuFrequencyPrice(String skuGuid, List<Integer> priceFrequencyIdList);
+
+    @Select({"<script> " +
+            " SELECT " +
+            "   sku_guid, " +
+            "   vehicle_id, " +
+            "   color " +
+            " FROM [pocket].[pocket_sku] " +
+            " WHERE sku_guid = #{skuGuid} " +
+            "   AND vehicle_id = #{vehicleId} " +
+            "</script>"})
+    VehicleSkuDTO selectOneSku(int vehicleId, String skuGuid);
 }
