@@ -5,12 +5,15 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Date;
+
 @Builder
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class InsertOrderDTO {
+public class RentalOrderDTO {
     public Integer orderId;
     public Integer clientId;
-    public String totalPriceString;
+    public Date signingTime;
+    public String totalPrice;
 }
