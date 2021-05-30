@@ -37,8 +37,8 @@ Flyway Service for database migration
 | **get available vehicles in selected period**    | GET    /vehicles?startDate={startDate}&endDate={endDate}     |
 | **get the price for one SKU in selected period** | GET    /vehicles/{vehiclesId}/sku/{skuId}/price?startDate={startDate}&endDate={endDate} |
 |                                                  |                                                              |
-| **create an order for a SKU in selected period** | POST /orders                                                 |
-| add other SKU in other selected period           | PUT /orders/{orderId}/client/{clientId}                      |
+| **create an order for a SKU in selected period** | POST /orders    with body                                    |
+| **add other SKU in other selected period**       | PUT /orders/{orderId}  with body                             |
 | update the original rental schedule              | PUT /orders/{orderId}/{rentalScheduleId}                     |
 | **list one order**                               | GET /orders/{orderId}/client/{clientId}                      |
 | **list all orders**                              | GET /orders/client/{clientId}                                |
