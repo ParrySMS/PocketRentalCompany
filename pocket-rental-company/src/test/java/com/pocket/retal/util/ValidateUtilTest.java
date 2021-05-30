@@ -23,13 +23,17 @@ class ValidateUtilTest {
     }
 
     @Test
-    void notNullOrEmpty() {
+    void notNullOrEmptyOrBlank() {
         assertThrows(ValidationException.class, () -> {
-            ValidateUtil.notNullOrEmpty(null, "null");
+            ValidateUtil.notNullOrEmptyOrBlank(null, "null");
         });
 
         assertThrows(ValidationException.class, () -> {
-            ValidateUtil.notNullOrEmpty("", "");
+            ValidateUtil.notNullOrEmptyOrBlank("", "");
+        });
+
+        assertThrows(ValidationException.class, () -> {
+            ValidateUtil.notNullOrEmptyOrBlank("  ", "");
         });
     }
 

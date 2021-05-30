@@ -3,6 +3,7 @@ package com.pocket.retal.controller;
 import com.pocket.retal.model.ApiResult;
 import com.pocket.retal.model.dto.VehicleDTO;
 import com.pocket.retal.model.dto.VehicleSkuDTO;
+import com.pocket.retal.model.VehicleSkuWithPrice;
 import com.pocket.retal.service.VehicleService;
 import com.pocket.retal.util.ValidateUtil;
 import io.swagger.annotations.Api;
@@ -13,7 +14,6 @@ import org.springframework.web.bind.annotation.*;
 import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 
 @CrossOrigin
 @RestController
@@ -31,18 +31,14 @@ public class VehicleController {
     public ResponseEntity<ApiResult<List<VehicleDTO>>> getVehicles(
             @RequestParam(value = "startDate", required = false) String startDateStr,
             @RequestParam(value = "endDate", required = false) String endDateStr) throws ParseException {
-        Optional<Date> opStartDate = ValidateUtil.parseDate(startDateStr);
-        Optional<Date> opEndDate = ValidateUtil.parseDate(endDateStr);
-        if (opStartDate.isPresent() && opEndDate.isPresent()) {
-            ValidateUtil.Friendly.assertFalse(opEndDate.get().before(opStartDate.get()),
+        Date startDate = ValidateUtil.parseDate(startDateStr);
+        Date endDate = ValidateUtil.parseDate(endDateStr);
+        if (startDate != null && endDate != null) {
+            ValidateUtil.Friendly.assertFalse(endDate.before(startDate),
                     "endDate should not before startDate");
-
-            ValidateUtil.Friendly.assertFalse(opEndDate.get().equals(opStartDate.get()),
+            ValidateUtil.Friendly.assertFalse(endDate.equals(startDate),
                     "endDate should not be the same as startDate");
         }
-
-        var startDate = opStartDate.orElse(null);
-        var endDate = opEndDate.orElse(null);
         return ApiResult.ok(vehicleService.getVehiclesWithDates(startDate, endDate));
     }
 
@@ -72,4 +68,23 @@ public class VehicleController {
         ValidateUtil.notNull(pageSize, "pageSize");
         return ApiResult.ok(vehicleService.getAllSkusFromOneVehicle(vehicleId, offset, pageSize));
     }
+
+    @GetMapping("/{vehicleId}/skus/{skuGuid}/price")
+    public ResponseEntity<ApiResult<VehicleSkuWithPrice>> getPriceForSkuInSelectedPeriod(
+            @RequestParam(value = "startDate") String startDateStr,
+            @RequestParam(value = "endDate") String endDateStr,
+            @PathVariable("vehicleId") int vehicleId,
+            @PathVariable("skuGuid") String skuGuid) throws ParseException {
+        Date startDate = ValidateUtil.parseDate(startDateStr, null, true);
+        Date endDate = ValidateUtil.parseDate(endDateStr, null, true);
+        ValidateUtil.Friendly.assertFalse(endDate.before(startDate),
+                "endDate should not before startDate");
+        ValidateUtil.Friendly.assertFalse(endDate.equals(startDate),
+                "endDate should not be the same as startDate");
+        ValidateUtil.min(vehicleId, 1, "vehicleId");
+        ValidateUtil.notNullOrEmptyOrBlank(skuGuid, "skuGuid");
+        ValidateUtil.IsValidUUID(skuGuid, "skuGuid");
+        return ApiResult.ok(vehicleService.getPriceForSkuInSelectedPeriod(vehicleId, skuGuid, startDate, endDate));
+    }
+
 }

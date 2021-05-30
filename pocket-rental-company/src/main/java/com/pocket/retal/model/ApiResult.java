@@ -1,5 +1,6 @@
 package com.pocket.retal.model;
 
+import com.pocket.retal.model.enumeration.PocketResponseStatus;
 import lombok.Builder;
 import org.springframework.http.ResponseEntity;
 

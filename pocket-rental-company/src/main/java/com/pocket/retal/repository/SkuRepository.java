@@ -1,5 +1,6 @@
 package com.pocket.retal.repository;
 
+import com.pocket.retal.model.dto.SkuPriceDTO;
 import com.pocket.retal.model.dto.VehicleSkuDTO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
@@ -19,4 +20,27 @@ public interface SkuRepository {
             " offset #{pageSize} * #{offset} rows FETCH NEXT #{pageSize} rows ONLY" +
             "</script>"})
     List<VehicleSkuDTO> selectAllSkusFromOneVehicle(int vehicleId, int offset, int pageSize);
+
+    @Select({"<script> " +
+            " SELECT " +
+            "   p.sku_guid, " +
+            "   p.price_frequency_id, " +
+            "   p.price, " +
+            "   pf.frequency_type " +
+            " FROM [pocket].[pocket_sku_price] AS p " +
+            " LEFT JOIN [pocket].[pocket_price_frequency] AS pf " +
+            "   ON p.price_frequency_id = pf.id " +
+            " WHERE p.sku_guid = #{skuGuid} " +
+            "   AND p.price_frequency_id IN " +
+            "<where> " +
+            "   p.sku_guid = #{skuGuid} " +
+            "   <if test='priceFrequencyIdList != null'> " +
+            "       AND p.price_frequency_id IN " +
+            "       <foreach collection='priceFrequencyIdList' item='priceFrequencyId' open='(' separator=',' close=')'> " +
+            "        #{priceFrequencyId} " +
+            "      </foreach>" +
+            "  </if>" +
+            "</where> " +
+            "</script>"})
+    List<SkuPriceDTO> getSkuFrequencyPrice(String skuGuid, List<Integer> priceFrequencyIdList);
 }

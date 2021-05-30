@@ -33,7 +33,7 @@ public interface VehicleRepository {
             " LEFT JOIN [pocket].[pocket_vehicle_description] AS t_description ON " +
             "   t_vehicle.id = t_description.vehicle_id " +
             "<where> " +
-            "   <if test='availableVehicleIdList!=null'>" +
+            "   <if test='availableVehicleIdList != null'>" +
             "       t_vehicle.id IN" +
             "       <foreach collection='availableVehicleIdList' item='availableVehicleId' open='(' separator=',' close=')'> " +
             "        #{availableVehicleId} " +

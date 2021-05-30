@@ -1,4 +1,4 @@
-package com.pocket.retal.model;
+package com.pocket.retal.model.enumeration;
 
 public enum PocketResponseStatus {
     NORMAL("200200", ""),
