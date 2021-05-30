@@ -16,7 +16,10 @@ import java.util.Date;
 import java.util.List;
 
 import static org.mockito.ArgumentMatchers.anyInt;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.any;
+import static org.mockito.Mockito.eq;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 class VehicleServiceTest {
     private static final String YMD_DATE_FORMAT = "yyyy/MM/dd";

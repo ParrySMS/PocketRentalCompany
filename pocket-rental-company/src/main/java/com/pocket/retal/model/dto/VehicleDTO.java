@@ -10,8 +10,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class VehicleDTO {
-    int id;
+    Integer id;
     String name;
-    int modelYear;
+    Integer modelYear;
     String description;
 }

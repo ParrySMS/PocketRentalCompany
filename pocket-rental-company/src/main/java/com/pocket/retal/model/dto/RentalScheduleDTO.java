@@ -5,12 +5,15 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Data
+import java.util.Date;
+
 @Builder
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class VehicleSkuDTO {
-    Integer vehicleId;
+public class RentalScheduleDTO {
     String skuGuid;
-    String color;
+    Date startTime;
+    Date endTime;
+    String schedulePrice;
 }

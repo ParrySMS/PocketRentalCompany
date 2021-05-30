@@ -1,11 +1,12 @@
 package com.pocket.retal.util;
 
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class DateUtilTest {
     private static final String YMD_DATE_FORMAT = "yyyy/MM/dd";
@@ -16,7 +17,7 @@ class DateUtilTest {
         Date date = formatter.parse("2021/12/05");
         Date nextDate = formatter.parse("2021/12/06");
         Date actual = DateUtil.getNextDay(date);
-        Assertions.assertEquals(actual, nextDate);
+        assertEquals(actual, nextDate);
     }
 
     @Test
@@ -25,6 +26,6 @@ class DateUtilTest {
         Date lastDate = formatter.parse("2021/12/05");
         Date date = formatter.parse("2021/12/06");
         Date actual = DateUtil.getLastDay(date);
-        Assertions.assertEquals(actual, lastDate);
+        assertEquals(actual, lastDate);
     }
 }
