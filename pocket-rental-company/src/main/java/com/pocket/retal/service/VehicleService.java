@@ -2,6 +2,7 @@ package com.pocket.retal.service;
 
 import com.pocket.retal.exception.PocketApiException;
 import com.pocket.retal.model.SkuAvailableDate;
+import com.pocket.retal.model.SkuPrice;
 import com.pocket.retal.model.SkuServiceDate;
 import com.pocket.retal.model.TimeInterval;
 import com.pocket.retal.model.VehicleSkuWithPrice;
@@ -21,7 +22,16 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -248,7 +258,7 @@ public class VehicleService {
 
     }
 
-    public VehicleSkuWithPrice getVehicleSkuWithPriceInSelectedPeriod(int vehicleId, String skuGuid, Date startDate, Date endDate) {
+    public SkuPrice getSkuPriceInSelectedPeriod(String skuGuid, Date startDate, Date endDate) {
         int selectedPeriodDays = DateUtil.getDaysBetween(startDate, endDate);
         if (selectedPeriodDays == 0) {
             selectedPeriodDays = 1;
@@ -260,17 +270,23 @@ public class VehicleService {
                 SkuPriceDTO::getPrice));
 
         Map<Integer, Integer> priceFrequencyIdMapToFactorUnit = initPriceFrequencyIdMapToFactorUnit(selectedPeriodDays);
-
         double skuPrice = getSkuPriceBySumAllFrequencyPrice(priceFrequencyIdList, priceFrequencyIdMapToPriceString, priceFrequencyIdMapToFactorUnit);
         double averageDailyPrice = MathUtil.div(skuPrice, selectedPeriodDays);
-        VehicleSkuDTO vehicleSkuDTO = getOneSku(vehicleId, skuGuid);
+        return SkuPrice.builder()
+                .skuPrice(skuPrice)
+                .averageDailyPrice(averageDailyPrice)
+                .build();
+    }
 
+    public VehicleSkuWithPrice getVehicleSkuWithPriceInSelectedPeriod(int vehicleId, String skuGuid, Date startDate, Date endDate) {
+        SkuPrice skuPriceEntity = getSkuPriceInSelectedPeriod(skuGuid, startDate, endDate);
+        VehicleSkuDTO vehicleSkuDTO = getOneSku(vehicleId, skuGuid);
         return VehicleSkuWithPrice.builder()
                 .vehicleId(vehicleSkuDTO.getVehicleId())
                 .skuGuid(vehicleSkuDTO.getSkuGuid())
                 .color(vehicleSkuDTO.getColor())
-                .skuPrice(Double.toString(skuPrice))
-                .averageDailyPrice(Double.toString(averageDailyPrice))
+                .skuPrice(Double.toString(skuPriceEntity.getSkuPrice()))
+                .averageDailyPrice(Double.toString(skuPriceEntity.getAverageDailyPrice()))
                 .build();
     }
 

@@ -1,6 +1,7 @@
 package com.pocket.retal.repository;
 
 import com.pocket.retal.model.dto.RentalScheduleVehicleSkuDTO;
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
@@ -37,4 +38,12 @@ public interface RentalScheduleRepository {
             "</where>" +
             "</script>"})
     List<RentalScheduleVehicleSkuDTO> getRentalScheduleVehicleSkus(Date startDate, Date endDate);
+
+    @Insert({"<script> " +
+            " INSERT [pocket].[pocket_rental_schedule] " +
+            "   (sku_guid, start_time, end_time, schedule_price, rental_order_id, create_on, last_modified) " +
+            " VALUES " +
+            "   (#{skuGuid}, #{startDate}, #{endDate}, #{schedulePriceString}, #{rentalOrderId}, GETDATE(), GETDATE())" +
+            "</script>"})
+    int insertSchedule(String skuGuid, Date startDate, Date endDate, String schedulePriceString, int rentalOrderId);
 }

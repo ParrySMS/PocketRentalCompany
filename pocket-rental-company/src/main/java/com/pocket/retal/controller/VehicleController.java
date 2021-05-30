@@ -1,15 +1,20 @@
 package com.pocket.retal.controller;
 
 import com.pocket.retal.model.ApiResult;
+import com.pocket.retal.model.VehicleSkuWithPrice;
 import com.pocket.retal.model.dto.VehicleDTO;
 import com.pocket.retal.model.dto.VehicleSkuDTO;
-import com.pocket.retal.model.VehicleSkuWithPrice;
 import com.pocket.retal.service.VehicleService;
 import com.pocket.retal.util.ValidateUtil;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.text.ParseException;
 import java.util.Date;

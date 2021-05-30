@@ -93,4 +93,12 @@ public class ValidateUtil {
             }
         }
     }
+
+    public static void effectRowsAssert(int expectedNum, int effectRows, String reposName) {
+        if (effectRows != expectedNum) {
+            throw new PocketApiException(
+                    PocketResponseStatus.SYSTEM_INTERNAL_ERROR,
+                    "effectRows != expectedNum on " + reposName);
+        }
+    }
 }
