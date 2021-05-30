@@ -11,8 +11,8 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class SkuOrder {
-    Integer orderId;
+public class InsertSkuOrderRequestBody {
+    Integer clientId;
     String skuGuid;
     @JsonProperty("startDate")
     String startDateStr;
