@@ -8,7 +8,10 @@ import org.junit.jupiter.api.Test;
 import java.text.ParseException;
 
 import static org.mockito.ArgumentMatchers.anyInt;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.any;
+import static org.mockito.Mockito.eq;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 class VehicleControllerTest {
 
