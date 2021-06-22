@@ -158,50 +158,32 @@ class VehicleServiceTest {
     }
 
     @Test
+    void getSkuPriceInSelectedPeriod() {
+
+    }
+
+
+    @Test
     void breakAvailableTimeInterval_noIntersection_returnSameAvailableTimeInterval() throws ParseException {
-        vehicleService = new VehicleService(vehicleRepository, skuRepository, rentalScheduleRepository);
-
-        SimpleDateFormat formatter = new SimpleDateFormat(YMD_DATE_FORMAT);
-        Date serviceTimeIntervalStart = formatter.parse("2021/12/05");
-        Date serviceTimeIntervalEnd = formatter.parse("2021/12/07");
-        TimeInterval serviceTimeInterval = TimeInterval.builder()
-                .startDate(serviceTimeIntervalStart)
-                .endDate(serviceTimeIntervalEnd)
-                .build();
-
-        Date availableTimeIntervalStart = formatter.parse("2021/3/05");
-        Date availableTimeIntervalEnd = formatter.parse("2021/3/07");
-        TimeInterval availableTimeInterval = TimeInterval.builder()
-                .startDate(availableTimeIntervalStart)
-                .endDate(availableTimeIntervalEnd)
-                .build();
-
-        List<TimeInterval> actual = vehicleService.breakAvailableTimeInterval(serviceTimeInterval, availableTimeInterval);
+        List<TimeInterval> actual = breakAvailableTimeIntervalCaseTemplate(
+                "2021/12/05",
+                "2021/12/07",
+                "2021/3/05",
+                "2021/3/07"
+        );
         Assertions.assertNotNull(actual);
         Assertions.assertEquals(1, actual.size());
-        Assertions.assertEquals(availableTimeInterval, actual.get(0));
+        Assertions.assertEquals(buildTimeInterval("2021/3/05", "2021/3/07"), actual.get(0));
     }
 
     @Test
     void breakAvailableTimeInterval_ServiceOverAvailable_returnEmptyAvailableTimeInterval() throws ParseException {
-        vehicleService = new VehicleService(vehicleRepository, skuRepository, rentalScheduleRepository);
-
-        SimpleDateFormat formatter = new SimpleDateFormat(YMD_DATE_FORMAT);
-        Date serviceTimeIntervalStart = formatter.parse("2021/5/05");
-        Date serviceTimeIntervalEnd = formatter.parse("2021/6/07");
-        TimeInterval serviceTimeInterval = TimeInterval.builder()
-                .startDate(serviceTimeIntervalStart)
-                .endDate(serviceTimeIntervalEnd)
-                .build();
-
-        Date availableTimeIntervalStart = formatter.parse("2021/5/15");
-        Date availableTimeIntervalEnd = formatter.parse("2021/5/25");
-        TimeInterval availableTimeInterval = TimeInterval.builder()
-                .startDate(availableTimeIntervalStart)
-                .endDate(availableTimeIntervalEnd)
-                .build();
-
-        List<TimeInterval> actual = vehicleService.breakAvailableTimeInterval(serviceTimeInterval, availableTimeInterval);
+        List<TimeInterval> actual = breakAvailableTimeIntervalCaseTemplate(
+                "2021/5/05",
+                "2021/6/07",
+                "2021/5/15",
+                "2021/5/25"
+        );
         Assertions.assertNotNull(actual);
         Assertions.assertTrue(actual.isEmpty());
     }
@@ -209,26 +191,54 @@ class VehicleServiceTest {
 
     @Test
     void breakAvailableTimeInterval_ServiceEqualsAvailable_returnEmptyAvailableTimeInterval() throws ParseException {
-        vehicleService = new VehicleService(vehicleRepository, skuRepository, rentalScheduleRepository);
-
-        SimpleDateFormat formatter = new SimpleDateFormat(YMD_DATE_FORMAT);
-        Date serviceTimeIntervalStart = formatter.parse("2021/5/05");
-        Date serviceTimeIntervalEnd = formatter.parse("2021/6/07");
-        TimeInterval serviceTimeInterval = TimeInterval.builder()
-                .startDate(serviceTimeIntervalStart)
-                .endDate(serviceTimeIntervalEnd)
-                .build();
-
-        Date availableTimeIntervalStart = formatter.parse("2021/5/05");
-        Date availableTimeIntervalEnd = formatter.parse("2021/6/07");
-        TimeInterval availableTimeInterval = TimeInterval.builder()
-                .startDate(availableTimeIntervalStart)
-                .endDate(availableTimeIntervalEnd)
-                .build();
-
-        List<TimeInterval> actual = vehicleService.breakAvailableTimeInterval(serviceTimeInterval, availableTimeInterval);
+        List<TimeInterval> actual = breakAvailableTimeIntervalCaseTemplate(
+                "2021/5/05",
+                "2021/6/07",
+                "2021/5/05",
+                "2021/6/07"
+        );
         Assertions.assertNotNull(actual);
         Assertions.assertTrue(actual.isEmpty());
+    }
+
+    @Test
+    void breakAvailableTimeInterval_ServiceTakeTheFrontAvailable_returnPartAvailableTimeInterval() throws ParseException {
+        List<TimeInterval> actual = breakAvailableTimeIntervalCaseTemplate(
+                "2021/5/05",
+                "2021/5/15",
+                "2021/5/10",
+                "2021/5/25"
+        );
+        Assertions.assertNotNull(actual);
+        Assertions.assertEquals(1, actual.size());
+        Assertions.assertEquals(buildTimeInterval("2021/5/16", "2021/5/25"), actual.get(0));
+    }
+
+    @Test
+    void breakAvailableTimeInterval_ServiceTakeTheEndAvailable_returnPartAvailableTimeInterval() throws ParseException {
+        List<TimeInterval> actual = breakAvailableTimeIntervalCaseTemplate(
+                "2021/5/10",
+                "2021/5/25",
+                "2021/5/05",
+                "2021/5/15"
+        );
+        Assertions.assertNotNull(actual);
+        Assertions.assertEquals(1, actual.size());
+        Assertions.assertEquals(buildTimeInterval("2021/5/5", "2021/5/9"), actual.get(0));
+    }
+
+    @Test
+    void breakAvailableTimeInterval_ServiceTakeTheMiddlePartAvailable_returnTwoAvailableTimeInterval() throws ParseException {
+        List<TimeInterval> actual = breakAvailableTimeIntervalCaseTemplate(
+                "2021/5/10",
+                "2021/5/15",
+                "2021/5/05",
+                "2021/5/25"
+        );
+        Assertions.assertNotNull(actual);
+        Assertions.assertEquals(2, actual.size());
+        Assertions.assertEquals(buildTimeInterval("2021/5/5", "2021/5/9"), actual.get(0));
+        Assertions.assertEquals(buildTimeInterval("2021/5/16", "2021/5/25"), actual.get(1));
     }
 
     @Test
@@ -245,5 +255,26 @@ class VehicleServiceTest {
                 MockRepo.getRentalScheduleVehicleSku("skuGuid", 1, date, date);
         vehicleService = new VehicleService(vehicleRepository, skuRepository, rentalScheduleRepository);
         Assertions.assertNotNull(vehicleService.buildFreeSkuAvailableDate(scheduleVehicleSku, date, date));
+    }
+
+
+    private TimeInterval buildTimeInterval(String startDateString, String endDateString) throws ParseException {
+        SimpleDateFormat formatter = new SimpleDateFormat(YMD_DATE_FORMAT);
+        Date availableTimeIntervalStart = formatter.parse(startDateString);
+        Date availableTimeIntervalEnd = formatter.parse(endDateString);
+        return TimeInterval.builder()
+                .startDate(availableTimeIntervalStart)
+                .endDate(availableTimeIntervalEnd)
+                .build();
+    }
+
+    private List<TimeInterval> breakAvailableTimeIntervalCaseTemplate(String serviceTimeIntervalStartString,
+                                                                      String serviceTimeIntervalEndString,
+                                                                      String availableTimeIntervalStartString,
+                                                                      String availableTimeIntervalEndString) throws ParseException {
+        vehicleService = new VehicleService(vehicleRepository, skuRepository, rentalScheduleRepository);
+        TimeInterval serviceTimeInterval = buildTimeInterval(serviceTimeIntervalStartString, serviceTimeIntervalEndString);
+        TimeInterval availableTimeInterval = buildTimeInterval(availableTimeIntervalStartString, availableTimeIntervalEndString);
+        return vehicleService.breakAvailableTimeInterval(serviceTimeInterval, availableTimeInterval);
     }
 }
