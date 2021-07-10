@@ -8,7 +8,7 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
-public class MockRepo {
+public class MockRecourse {
     public static List<VehicleSkuDTO> getSomeMockVehicleSkus(int vehicleId) {
         var mockSku1 = VehicleSkuDTO.builder()
                 .skuGuid("mockGuid1")

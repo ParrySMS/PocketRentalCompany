@@ -1,13 +1,17 @@
 package com.pocket.retal.service;
 
-import com.pocket.retal.mock.MockRepo;
+import com.pocket.retal.mock.MockRecourse;
 import com.pocket.retal.model.TimeInterval;
 import com.pocket.retal.model.dto.RentalScheduleVehicleSkuDTO;
 import com.pocket.retal.repository.RentalScheduleRepository;
 import com.pocket.retal.repository.SkuRepository;
 import com.pocket.retal.repository.VehicleRepository;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -18,21 +22,30 @@ import java.util.List;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.any;
 import static org.mockito.Mockito.eq;
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 class VehicleServiceTest {
     private static final String YMD_DATE_FORMAT = "yyyy/MM/dd";
+
+    @Mock
+    private VehicleRepository vehicleRepository;
+    @Mock
+    private RentalScheduleRepository rentalScheduleRepository;
+    @Mock
+    private SkuRepository skuRepository;
+
+    @InjectMocks
     private VehicleService vehicleService;
-    private VehicleRepository vehicleRepository = mock(VehicleRepository.class);
-    private RentalScheduleRepository rentalScheduleRepository = mock(RentalScheduleRepository.class);
-    private SkuRepository skuRepository = mock(SkuRepository.class);
+
+    @BeforeEach
+    void setUp() {
+        MockitoAnnotations.openMocks(this);
+    }
 
     @Test
     void getVehicles_normal_returnList() {
         when(vehicleRepository.selectAllVehicles(anyInt(), anyInt()))
-                .thenReturn(MockRepo.getSomeMockVehicles());
-        vehicleService = new VehicleService(vehicleRepository);
+                .thenReturn(MockRecourse.getSomeMockVehicles());
         var vehicles = vehicleService.getVehicles();
 
         Assertions.assertNotNull(vehicles);
@@ -42,8 +55,7 @@ class VehicleServiceTest {
     @Test
     void getVehicles_withBothNullDateParam_returnList() {
         when(vehicleRepository.selectAllVehicles(anyInt(), anyInt()))
-                .thenReturn(MockRepo.getSomeMockVehicles());
-        vehicleService = new VehicleService(vehicleRepository);
+                .thenReturn(MockRecourse.getSomeMockVehicles());
         var vehicles = vehicleService.getVehiclesWithDates(null, null);
 
         Assertions.assertNotNull(vehicles);
@@ -53,14 +65,12 @@ class VehicleServiceTest {
     @Test
     void getVehicles_withBothNonNullDateParam_returnList() {
         when(vehicleRepository.selectAllVehicles(anyInt(), anyInt()))
-                .thenReturn(MockRepo.getSomeMockVehicles());
+                .thenReturn(MockRecourse.getSomeMockVehicles());
 
         when(rentalScheduleRepository.getRentalScheduleVehicleSkus(any(), any()))
                 .thenReturn(new ArrayList<>());
 
-        vehicleService = new VehicleService(vehicleRepository, skuRepository, rentalScheduleRepository);
         var date = new Date();
-
         var vehicles = vehicleService.getVehiclesWithDates(date, date);
         Assertions.assertNotNull(vehicles);
         Assertions.assertFalse(vehicles.isEmpty());
@@ -70,14 +80,12 @@ class VehicleServiceTest {
     @Test
     void getVehicles_withOneNullOneNonNullDateParam_returnList() {
         when(vehicleRepository.selectAllVehicles(anyInt(), anyInt()))
-                .thenReturn(MockRepo.getSomeMockVehicles());
+                .thenReturn(MockRecourse.getSomeMockVehicles());
 
         when(rentalScheduleRepository.getRentalScheduleVehicleSkus(any(), any()))
                 .thenReturn(new ArrayList<>());
 
-        vehicleService = new VehicleService(vehicleRepository, skuRepository, rentalScheduleRepository);
         var date = new Date();
-
         var vehiclesStartDateNull = vehicleService.getVehiclesWithDates(null, date);
         Assertions.assertNotNull(vehiclesStartDateNull);
         Assertions.assertFalse(vehiclesStartDateNull.isEmpty());
@@ -91,7 +99,6 @@ class VehicleServiceTest {
     void getVehicles_empty_returnEmptyList() {
         when(vehicleRepository.selectAllVehicles(anyInt(), anyInt()))
                 .thenReturn(new ArrayList<>());
-        vehicleService = new VehicleService(vehicleRepository);
         var vehicles = vehicleService.getVehicles();
 
         Assertions.assertNotNull(vehicles);
@@ -102,7 +109,6 @@ class VehicleServiceTest {
     void getVehicles_null_returnEmptyList() {
         when(vehicleRepository.selectAllVehicles(anyInt(), anyInt()))
                 .thenReturn(null);
-        vehicleService = new VehicleService(vehicleRepository);
         var vehicles = vehicleService.getVehicles();
 
         Assertions.assertNotNull(vehicles);
@@ -113,8 +119,7 @@ class VehicleServiceTest {
     void getAllSkusFromOneVehicle_normal_returnList() {
         int mockVehicleId = 123;
         when(skuRepository.selectAllSkusFromOneVehicle(eq(mockVehicleId), anyInt(), anyInt()))
-                .thenReturn(MockRepo.getSomeMockVehicleSkus(mockVehicleId));
-        vehicleService = new VehicleService(skuRepository);
+                .thenReturn(MockRecourse.getSomeMockVehicleSkus(mockVehicleId));
         var skus = vehicleService.getAllSkusFromOneVehicle(mockVehicleId);
 
         Assertions.assertNotNull(skus);
@@ -126,7 +131,6 @@ class VehicleServiceTest {
         int mockVehicleId = 456;
         when(skuRepository.selectAllSkusFromOneVehicle(eq(mockVehicleId), anyInt(), anyInt()))
                 .thenReturn(new ArrayList<>());
-        vehicleService = new VehicleService(skuRepository);
         var skus = vehicleService.getAllSkusFromOneVehicle(mockVehicleId);
 
         Assertions.assertNotNull(skus);
@@ -138,7 +142,6 @@ class VehicleServiceTest {
         int mockVehicleId = 789;
         when(skuRepository.selectAllSkusFromOneVehicle(eq(mockVehicleId), anyInt(), anyInt()))
                 .thenReturn(null);
-        vehicleService = new VehicleService(skuRepository);
         var skus = vehicleService.getAllSkusFromOneVehicle(mockVehicleId);
 
         Assertions.assertNotNull(skus);
@@ -161,7 +164,6 @@ class VehicleServiceTest {
     void getSkuPriceInSelectedPeriod() {
 
     }
-
 
     @Test
     void breakAvailableTimeInterval_noIntersection_returnSameAvailableTimeInterval() throws ParseException {
@@ -244,7 +246,6 @@ class VehicleServiceTest {
     @Test
     void buildSkuServiceDate() {
         RentalScheduleVehicleSkuDTO scheduleVehicleSku = RentalScheduleVehicleSkuDTO.builder().build();
-        vehicleService = new VehicleService(vehicleRepository, skuRepository, rentalScheduleRepository);
         Assertions.assertNotNull(vehicleService.buildSkuServiceDate(scheduleVehicleSku));
     }
 
@@ -252,8 +253,7 @@ class VehicleServiceTest {
     void buildFreeSkuAvailableDate() {
         Date date = new Date();
         RentalScheduleVehicleSkuDTO scheduleVehicleSku =
-                MockRepo.getRentalScheduleVehicleSku("skuGuid", 1, date, date);
-        vehicleService = new VehicleService(vehicleRepository, skuRepository, rentalScheduleRepository);
+                MockRecourse.getRentalScheduleVehicleSku("skuGuid", 1, date, date);
         Assertions.assertNotNull(vehicleService.buildFreeSkuAvailableDate(scheduleVehicleSku, date, date));
     }
 
@@ -272,7 +272,6 @@ class VehicleServiceTest {
                                                                       String serviceTimeIntervalEndString,
                                                                       String availableTimeIntervalStartString,
                                                                       String availableTimeIntervalEndString) throws ParseException {
-        vehicleService = new VehicleService(vehicleRepository, skuRepository, rentalScheduleRepository);
         TimeInterval serviceTimeInterval = buildTimeInterval(serviceTimeIntervalStartString, serviceTimeIntervalEndString);
         TimeInterval availableTimeInterval = buildTimeInterval(availableTimeIntervalStartString, availableTimeIntervalEndString);
         return vehicleService.breakAvailableTimeInterval(serviceTimeInterval, availableTimeInterval);

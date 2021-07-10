@@ -10,12 +10,8 @@ import java.util.List;
 @Service
 public class PriceService {
 
-    private PriceFrequencyRepository priceFreqRepo;
-
     @Autowired
-    public PriceService(PriceFrequencyRepository priceFreqRepo) {
-        this.priceFreqRepo = priceFreqRepo;
-    }
+    private PriceFrequencyRepository priceFreqRepo;
 
     public List<PriceFrequencyDTO> getPriceFrequencies() {
         return priceFreqRepo.selectAllPriceFrequencies();

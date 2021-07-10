@@ -16,18 +16,12 @@ import java.util.List;
 @Service
 public class RentalOrderService {
 
-    private VehicleService vehicleService;
-    private RentalOrderRepository rentalOrderRepo;
-    private RentalScheduleRepository rentalScheduleRepo;
-
     @Autowired
-    public RentalOrderService(VehicleService vehicleService,
-                              RentalOrderRepository rentalOrderRepo,
-                              RentalScheduleRepository rentalScheduleRepo) {
-        this.vehicleService = vehicleService;
-        this.rentalOrderRepo = rentalOrderRepo;
-        this.rentalScheduleRepo = rentalScheduleRepo;
-    }
+    private VehicleService vehicleService;
+    @Autowired
+    private RentalOrderRepository rentalOrderRepo;
+    @Autowired
+    private RentalScheduleRepository rentalScheduleRepo;
 
     public RentalOrderDTO createOrder(int clientId, String skuGuid, Date startDate, Date endDate) {
         SkuPrice skuPrice = vehicleService.getSkuPriceInSelectedPeriod(skuGuid, startDate, endDate);
