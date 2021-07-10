@@ -38,26 +38,12 @@ import java.util.stream.Collectors;
 @Slf4j
 public class VehicleService {
 
-    private VehicleRepository vehicleRepository;
-    private SkuRepository skuRepository;
-    private RentalScheduleRepository rentalScheduleRepository;
-
     @Autowired
-    public VehicleService(VehicleRepository vehicleRepository,
-                          SkuRepository skuRepository,
-                          RentalScheduleRepository rentalScheduleRepository) {
-        this.vehicleRepository = vehicleRepository;
-        this.skuRepository = skuRepository;
-        this.rentalScheduleRepository = rentalScheduleRepository;
-    }
-
-    public VehicleService(VehicleRepository vehicleRepository) {
-        this.vehicleRepository = vehicleRepository;
-    }
-
-    public VehicleService(SkuRepository skuRepository) {
-        this.skuRepository = skuRepository;
-    }
+    private VehicleRepository vehicleRepository;
+    @Autowired
+    private SkuRepository skuRepository;
+    @Autowired
+    private RentalScheduleRepository rentalScheduleRepository;
 
     public List<VehicleDTO> getVehiclesWithDates(Date startDate, Date endDate) {
         if (startDate == null && endDate == null) {
