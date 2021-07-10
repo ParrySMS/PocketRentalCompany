@@ -25,12 +25,8 @@ import java.util.List;
 @Api
 @RequestMapping("/vehicles")
 public class VehicleController {
-    private VehicleService vehicleService;
-
     @Autowired
-    public VehicleController(VehicleService vehicleService) {
-        this.vehicleService = vehicleService;
-    }
+    private VehicleService vehicleService;
 
     @GetMapping("")
     public ResponseEntity<ApiResult<List<VehicleDTO>>> getVehicles(

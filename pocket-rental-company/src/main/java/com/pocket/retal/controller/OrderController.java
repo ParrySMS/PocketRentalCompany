@@ -29,12 +29,9 @@ import java.util.List;
 @Api
 @RequestMapping("/orders")
 public class OrderController {
-    private RentalOrderService rentalOrderService;
 
     @Autowired
-    public OrderController(RentalOrderService rentalOrderService) {
-        this.rentalOrderService = rentalOrderService;
-    }
+    private RentalOrderService rentalOrderService;
 
     @GetMapping("/client/{clientId}")
     public ResponseEntity<ApiResult<List<RentalOrderDTO>>> selectAllOrdersByClient(

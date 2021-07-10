@@ -19,6 +19,13 @@
         <maven.compiler.parameters>true</maven.compiler.parameters>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
+        <commons-lang3.version>3.12.0</commons-lang3.version>
+        <snakeyaml.version>1.27</snakeyaml.version>
+        <flyway-core.version>7.8.2</flyway-core.version>
+        <mssql-jdbc.version>9.2.1.jre11</mssql-jdbc.version>
+        <slf4j-simple.version>1.7.30</slf4j-simple.version>
+        <maven-shade-plugin.version>3.2.1</maven-shade-plugin.version>
     </properties>
 
     <dependencies>
@@ -26,26 +33,35 @@
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
-            <version>3.11</version>
+            <version>${commons-lang3.version}</version>
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/org.yaml/snakeyaml -->
         <dependency>
             <groupId>org.yaml</groupId>
             <artifactId>snakeyaml</artifactId>
-            <version>1.27</version>
+            <version>${snakeyaml.version}</version>
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/org.flywaydb/flyway-core -->
         <dependency>
             <groupId>org.flywaydb</groupId>
             <artifactId>flyway-core</artifactId>
-            <version>7.5.2</version>
+            <version>${flyway-core.version}</version>
         </dependency>
+
+        <!-- https://mvnrepository.com/artifact/com.microsoft.sqlserver/mssql-jdbc -->
         <dependency>
             <groupId>com.microsoft.sqlserver</groupId>
             <artifactId>mssql-jdbc</artifactId>
-            <version>9.2.1.jre11</version>
+            <version>${mssql-jdbc.version}</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-simple -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-simple</artifactId>
+            <version>${slf4j-simple.version}</version>
         </dependency>
 
     </dependencies>
@@ -55,14 +71,14 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.8.1</version>
+                <version>${maven-compiler.version}</version>
             </plugin>
 
             <!-- use "mvn -DskipTests=true clean package" to create standalone jar file, change Main-Class that contains main() -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>
-                <version>3.2.1</version>
+                <version>${maven-shade-plugin.version}</version>
                 <executions>
                     <execution>
                         <phase>package</phase>
